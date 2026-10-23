@@ -1,0 +1,38 @@
+{
+  "synthetic": true,
+  "cases": [
+    {
+      "query": "松湾是家吗？",
+      "evidence": [
+        "demo-03"
+      ],
+      "expectation": "明确区分研究室与家"
+    },
+    {
+      "query": "用户生日是哪一天？",
+      "evidence": [],
+      "expectation": "不知道，不能编造"
+    },
+    {
+      "query": "为什么不同意也应解释依据？",
+      "evidence": [
+        "demo-04"
+      ],
+      "expectation": "跨语言召回待实际模型评估"
+    },
+    {
+      "query": "Когда пользователь читал книгу?",
+      "evidence": [
+        "demo-05"
+      ],
+      "expectation": "昨天相对于原记录日期，非今天"
+    },
+    {
+      "query": "忘书是哪天？",
+      "evidence": [
+        "demo-06"
+      ],
+      "expectation": "保留日期未知"
+    }
+  ]
+}

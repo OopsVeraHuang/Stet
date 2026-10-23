@@ -1,0 +1,54 @@
+{
+  "synthetic": true,
+  "warning": "All invented; not a private chat export. Proposed schema, importer pending.",
+  "messages": [
+    {
+      "id": "demo-01",
+      "conversation_id": "demo-a",
+      "role": "user",
+      "text": "我把演示研究室设在松湾，工作日在那里读书。",
+      "recorded_at": "2026-09-01T09:00:00+08:00",
+      "source_id": "synthetic-a"
+    },
+    {
+      "id": "demo-02",
+      "conversation_id": "demo-a",
+      "role": "assistant",
+      "text": "如果讨论书里的观点，我们可以先看原文依据。",
+      "recorded_at": "2026-09-01T09:01:00+08:00",
+      "source_id": "synthetic-a"
+    },
+    {
+      "id": "demo-03",
+      "conversation_id": "demo-a",
+      "role": "user",
+      "text": "纠正一下：松湾是研究室，不是我的家。家在白榆。",
+      "recorded_at": "2026-09-02T09:00:00+08:00",
+      "source_id": "synthetic-a"
+    },
+    {
+      "id": "demo-04",
+      "conversation_id": "demo-b",
+      "role": "user",
+      "text": "Please explain disagreements with evidence instead of agreeing automatically.",
+      "recorded_at": "2026-09-03T10:00:00Z",
+      "source_id": "synthetic-b"
+    },
+    {
+      "id": "demo-05",
+      "conversation_id": "demo-b",
+      "role": "user",
+      "text": "Вчера я читал книгу в лаборатории.",
+      "recorded_at": "2026-09-03T10:05:00Z",
+      "source_id": "synthetic-b"
+    },
+    {
+      "id": "demo-06",
+      "conversation_id": "demo-a",
+      "role": "user",
+      "text": "有一次我把书忘在咖啡馆，具体哪天记不清了。",
+      "recorded_at": null,
+      "source_id": "synthetic-a"
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "scope": "P0 curated source and synthetic fixtures; no full application",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 136,
+      "sha256": "3990b0791a58913139fc1581bcba65a726d6ab85c5c7a9f6fea4b3ab8a59a8c1"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 2152,
+      "sha256": "d46e0834f08c73a07072399ccf3c38d739e95d5767454c313a7566154f24e613"
+    },
+    {
+      "path": "NEXT_AGENT.md",
+      "bytes": 2095,
+      "sha256": "a5dee89fc4a25fa878b91fb846c9c784449e3cb6127d763526a406763f77365a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2054,
+      "sha256": "830f77677d8a8dd8d5d6666445bc1efefca8353acfe76b58eeb2407c0333d0d2"
+    },
+    {
+      "path": "docs/01-project.md",
+      "bytes": 3758,
+      "sha256": "68f5bcff0b335ad1179f23505a6dc61e33dc5ed18a08ce8156314838c4821c5a"
+    },
+    {
+      "path": "docs/02-architecture.md",
+      "bytes": 4964,
+      "sha256": "c791532b019252c5c08e93a82f1d94731fd940c126a60d6af3b53f7e99d7191d"
+    },
+    {
+      "path": "docs/03-evaluation.md",
+      "bytes": 3181,
+      "sha256": "c88e8452e47281b0bc33ae47cb35646a3595554442d5c29549021429f1d01495"
+    },
+    {
+      "path": "docs/04-roadmap.md",
+      "bytes": 2447,
+      "sha256": "b7eab7b48aa3296cfc23c80e05b2cf50ff5f9be20614877bbbb0f5e2583bf13e"
+    },
+    {
+      "path": "docs/05-lineage.md",
+      "bytes": 1698,
+      "sha256": "3e8644bd2954f8c59d6cd7cf24a085bf820b03e6445281058e20a1959f8d7cea"
+    },
+    {
+      "path": "docs/06-feature-status.md",
+      "bytes": 1171,
+      "sha256": "f7d4e47e8f09b1403070f79b232966f4e3c56ccb09e0fe33823ac9e922b959cc"
+    },
+    {
+      "path": "docs/07-release.md",
+      "bytes": 1622,
+      "sha256": "8b5e791a4648db7daddae1eaba5b57ba15834f376a18b3b1416fc2b81d375cc1"
+    },
+    {
+      "path": "docs/08-migration-audit.md",
+      "bytes": 2282,
+      "sha256": "04818e539896dd4bd6e78a320d5a74c40d9e0398fd2e540558dcc05ca2a2e90e"
+    },
+    {
+      "path": "docs/09-verification.md",
+      "bytes": 786,
+      "sha256": "d66c3f2ba49c27929a3c44aeb6a3169bf9f704f9adc8042804df9d98658a4411"
+    },
+    {
+      "path": "docs/status.md",
+      "bytes": 311,
+      "sha256": "50c112eb6967c50d418a9cccf3448c42988afa4aa233cebd1ac54a5aa2fa9007"
+    },
+    {
+      "path": "examples/cases.json",
+      "bytes": 876,
+      "sha256": "02cdd5656e0de4589d28d1d88125b9751470684106bb04d5159cb1701faf81ac"
+    },
+    {
+      "path": "examples/messages.json",
+      "bytes": 1723,
+      "sha256": "0561881b6a64b2673b46582ad618e2bd6b24842e2ff1afab7df06c6d2e9fdbc1"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 1492,
+      "sha256": "e3f81ab9dde5659ec06250512b34005806f0ad0bc082b1c45aff91c69e2d6d62"
+    },
+    {
+      "path": "reference_core/context_policy.py",
+      "bytes": 3057,
+      "sha256": "abb02dbc396dba1b612a41a009307b2854cc9c61719a7f50ebe2b8bb77b67a75"
+    },
+    {
+      "path": "reference_core/recall.py",
+      "bytes": 9610,
+      "sha256": "099d50f78455042044aca854249748ebf74680783e3aa3a9c9857ed32be98cfd"
+    },
+    {
+      "path": "reference_core/semantic_memory.py",
+      "bytes": 15867,
+      "sha256": "40b98cac4186908bb1ef647adececb5181be23954995118583b409bbcfcde422"
+    },
+    {
+      "path": "reference_core/temporal.py",
+      "bytes": 4721,
+      "sha256": "f772c02701e2137e0fc33daa58846db012e1a1c5017d1f12a6b725bf0b266e9d"
+    },
+    {
+      "path": "tests/test_reference.py",
+      "bytes": 2018,
+      "sha256": "9e583e67bc13e69b56b5101f91b5926f52755bbe148718f09df2d6b1274a03cb"
+    },
+    {
+      "path": "检查交接包.cmd",
+      "bytes": 159,
+      "sha256": "42944de4dc3ccd93bdf80bb84a65fe5925ff7caa6a234e5db616e8f955a9d655"
+    }
+  ]
+}
