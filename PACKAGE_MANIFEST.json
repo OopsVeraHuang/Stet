@@ -116,5 +116,6 @@
       "bytes": 154,
       "sha256": "5f35fc25053666984929b3ec42da527d5e09743ec1d18ea5656c0023d1596534"
     }
-  ]
+  ],
+  "hash_scope": "exact Git-export bytes"
 }
