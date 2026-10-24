@@ -1,6 +1,6 @@
 {
   "date": "2026-10-24",
-  "scope": "P0 curated source and synthetic fixtures; no full application",
+  "scope": "P1-A offline workbench, reference source and synthetic fixtures; no model integrations",
   "hash_scope": "exact staged Git blob bytes; manifest itself excluded",
   "files": [
     {
@@ -20,13 +20,53 @@
     },
     {
       "path": "NEXT_AGENT.md",
-      "bytes": 2735,
-      "sha256": "f4143384a2b13b26b706e952d3c123e86fa8e013a68d2840d2d82a313c03f1f8"
+      "bytes": 3598,
+      "sha256": "16ff39aa3881e87ded2303a674d98e3680ec312b3e3da0c94743dc0f72e73057"
     },
     {
       "path": "README.md",
-      "bytes": 2434,
-      "sha256": "146b33bd22f8dfa4047ee0637d52beb154f7ee0c324a19a7e8621d3a4a97950c"
+      "bytes": 3601,
+      "sha256": "14ba50fc97ef7b275afc390d3656611188a3550b2da7d8e805d68ec2a9759aa6"
+    },
+    {
+      "path": "continuity/__init__.py",
+      "bytes": 66,
+      "sha256": "57f5a086e55dd148fd0bde21031fcd705c6df479463153325e7f9e3b6b656975"
+    },
+    {
+      "path": "continuity/__main__.py",
+      "bytes": 33,
+      "sha256": "ddd60a1df996b2b744c45953165711e5afe2711f5f0249f4e98875e1342411df"
+    },
+    {
+      "path": "continuity/importing.py",
+      "bytes": 6128,
+      "sha256": "e5f7db47b47135783ef03e69e47fdc08e041c3e5da1f6e121d5ee24dd0216681"
+    },
+    {
+      "path": "continuity/server.py",
+      "bytes": 7533,
+      "sha256": "dfe2b65d879f30e78c5c14cca8b5bea219c69d6809dc3da702e960d3e0c6c938"
+    },
+    {
+      "path": "continuity/static/app.js",
+      "bytes": 10896,
+      "sha256": "f68f0e55d078ea249eae44f047da440015fe4fcdf0f8aeddceb6600dfe249797"
+    },
+    {
+      "path": "continuity/static/index.html",
+      "bytes": 5015,
+      "sha256": "fccb513094047b7e7642385b06256d5f77c932a659c3beb155eef88cdd0226cc"
+    },
+    {
+      "path": "continuity/static/style.css",
+      "bytes": 4601,
+      "sha256": "feaf62e967c7005cd105416d30389969417d73470b5419220a695e58e604cbfb"
+    },
+    {
+      "path": "continuity/store.py",
+      "bytes": 8388,
+      "sha256": "d0da63b423f3cdb7d6584fe50e1552fcce34a31da3247e0ed5d033ffca2d154a"
     },
     {
       "path": "docs/01-project.md",
@@ -35,8 +75,8 @@
     },
     {
       "path": "docs/02-architecture.md",
-      "bytes": 9657,
-      "sha256": "aab0f235d182d6c70dbb68af0e0da60963e28eaeb21e71a33bc19e890d4c9dd1"
+      "bytes": 10161,
+      "sha256": "c00d03a3e89cc23ffa3f7555bc6cb69cae3e5fd9c51793bf38ede4cdcb427953"
     },
     {
       "path": "docs/03-evaluation.md",
@@ -45,8 +85,8 @@
     },
     {
       "path": "docs/04-roadmap.md",
-      "bytes": 2482,
-      "sha256": "ec1b6a33dcd5174733aee77f810363e861bc49ba2784d41714dc117653176624"
+      "bytes": 2501,
+      "sha256": "f99539978b4dbec3a63cc7b3f5a3ef94599ae144cff625be97f535ee8c3790d3"
     },
     {
       "path": "docs/05-lineage.md",
@@ -55,8 +95,8 @@
     },
     {
       "path": "docs/06-feature-status.md",
-      "bytes": 1425,
-      "sha256": "5bcea1fc02ab0e001498b2755dd9322c8cced8d02e7eb05845b8f767c0fd86cd"
+      "bytes": 1938,
+      "sha256": "9bfebd79911f2e57a9768fab6dddde17fda100a2d7a2558c5871c1f224cd7694"
     },
     {
       "path": "docs/07-release.md",
@@ -70,18 +110,23 @@
     },
     {
       "path": "docs/09-verification.md",
-      "bytes": 3341,
-      "sha256": "af1ec10b2f835ed760b26881933c714bbb87565f2679786e7fa7cb599dc5fe22"
+      "bytes": 3644,
+      "sha256": "cd436af883052b0c1021c8fb9423bf64a1df7f99b378c58f368475719b62dcfb"
     },
     {
       "path": "docs/10-cloud-development.md",
-      "bytes": 2751,
-      "sha256": "71661f59c8c5e3186bc295cf1bfba2c71cef62b0532f9fdd2e1c0c1a113f9ffe"
+      "bytes": 3538,
+      "sha256": "cc85df64b48e8309879ce1960a37a2d1abe002af5928daf50a48567e50237c36"
+    },
+    {
+      "path": "docs/11-p1a-workbench.md",
+      "bytes": 7450,
+      "sha256": "0a27f335a342e0f0bb48bc0c7f7ff2b35dd996d6bb085d62211f6a8ce8451a83"
     },
     {
       "path": "docs/status.md",
-      "bytes": 1037,
-      "sha256": "6275d9c47854621f2560a8854832846ff7524e001aaf55232a8ac1308a452e32"
+      "bytes": 4036,
+      "sha256": "b58528934f1cceb810dccf8962efd9ca1661604c4c9b4c78d34ac3bba382bc6b"
     },
     {
       "path": "examples/cases.json",
@@ -95,8 +140,13 @@
     },
     {
       "path": "examples/messages.json",
-      "bytes": 1669,
-      "sha256": "60f8b2ad57de0f476a85755916730fb4cf824addef7cd3b4c52966665bbc5c27"
+      "bytes": 1681,
+      "sha256": "a58b0e18d81841c826b20d739f26069048885765fa026c3265d233dcf75e3fba"
+    },
+    {
+      "path": "examples/messages.md",
+      "bytes": 1300,
+      "sha256": "6fc4b4f67bead046a12d5a3e3bd293d334eb64961b8842c95ac93fa02408dabd"
     },
     {
       "path": "provenance.json",
@@ -129,9 +179,24 @@
       "sha256": "484a0d73a0674a27682f2e5f1736eff1934bbab2e0017ece15ccff1706c0ac2c"
     },
     {
+      "path": "tests/test_workbench.py",
+      "bytes": 12087,
+      "sha256": "8f014aec2350e4edcc5bfa8389470a2e18760b14d810f814781aaeb83f14f3ed"
+    },
+    {
+      "path": "tools/check_browser.cjs",
+      "bytes": 8518,
+      "sha256": "9b841918b3e5e3ff739a2158f2f24a1889996dc7a52464e7576f42285da3e4a3"
+    },
+    {
       "path": "tools/package.py",
-      "bytes": 7051,
-      "sha256": "97a43ec2a2d1244ebf96f077c9f38b50e14d1a0fff4e523ff303beb7c168fb16"
+      "bytes": 7086,
+      "sha256": "153b05fb879159b85966c3896477dd944b2821564ad4c6b86d32d178abe2a4da"
+    },
+    {
+      "path": "启动原型.cmd",
+      "bytes": 164,
+      "sha256": "03b75ff6e57242c52ba5e744ca2d86151e285bf9a6a32bfd60c1b83809cc96f0"
     },
     {
       "path": "检查交接包.cmd",

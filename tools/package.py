@@ -1,4 +1,4 @@
-"""Standard-library packaging for the curated P0 handoff; never includes .git."""
+"""Standard-library packaging for the curated Continuity prototype; never includes .git."""
 import argparse
 import datetime as dt
 import hashlib
@@ -75,7 +75,7 @@ def refresh():
         raise ValueError("Stage the curated files before refreshing the manifest")
     document = {
         "date": dt.date.today().isoformat(),
-        "scope": "P0 curated source and synthetic fixtures; no full application",
+        "scope": "P1-A offline workbench, reference source and synthetic fixtures; no model integrations",
         "hash_scope": "exact staged Git blob bytes; manifest itself excluded",
         "files": sorted(entries, key=lambda e: e["path"]),
     }

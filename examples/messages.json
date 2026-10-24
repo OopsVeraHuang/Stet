@@ -1,6 +1,6 @@
 {
   "synthetic": true,
-  "warning": "All invented; not a private chat export. Proposed schema, importer pending.",
+  "warning": "All invented; not a private chat export. Supported by the P1-A canonical JSON importer.",
   "messages": [
     {
       "id": "demo-01",

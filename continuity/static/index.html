@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Continuity · 记忆工作台</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+<header><a class="brand" href="/">◌ <span>Continuity</span></a><span class="badge">P1-A · 本机原型</span></header>
+<main>
+<div class="intro"><p class="eyebrow">由你检查，由你决定</p><h1>让每条记忆，都能找到来处。</h1><p>从一段原话开始，保留它的上下文。这里展示保存的记录，不把模型的推断当成你的事实。</p></div>
+<nav aria-label="工作台"><button data-screen="import" aria-current="page">01　导入</button><button data-screen="memory">02　记忆</button><button data-screen="search">03　原文检索</button></nav>
+<p id="notice" role="status" aria-live="polite"></p>
+<section id="screen-import" aria-labelledby="import-title">
+<div class="section-heading"><div><p class="eyebrow">先预览，再保存</p><h2 id="import-title">带入一段记录</h2></div><span class="muted">JSON / MD · UTF-8 · ≤ 2 MiB</span></div>
+<div class="two-col"><div class="panel"><h3>第一次，从虚构示例开始</h3><p>示例里有中英俄原话、未知时间和不同分支。不会使用你的私人记录。</p><div class="actions"><button id="example-json" class="primary">预览 JSON 示例</button><button id="example-md">预览 MD 示例</button></div><p class="small"><a href="/api/examples/messages.json" download="messages.json">下载 JSON 模板</a> · <a href="/api/examples/messages.md" download="messages.md">下载 MD 模板</a></p></div>
+<div class="panel"><h3>选择规范文件</h3><p>角色、来源与时间一起检查；未知的信息保持未知。</p><label for="file">选择 JSON 或 MD</label><input id="file" type="file" accept=".json,.md"><p class="small">文件留在运行这份原型的电脑中。确认导入前不写入档案。其他平台导出需后续适配。</p></div></div>
+<div id="preview" hidden><div class="section-heading"><h3 id="preview-title">导入预览</h3><button id="confirm-import" class="primary">确认导入</button></div><div id="preview-summary" class="stats"></div><p id="preview-hash" class="small mono"></p><p id="preview-guidance"></p><div id="preview-rows" class="cards"></div></div>
+</section>
+<section id="screen-memory" aria-labelledby="memory-title" hidden><div class="section-heading"><div><p class="eyebrow">原话，不是定论</p><h2 id="memory-title">你的记忆档案</h2></div><button id="rebuild">重建检索索引</button></div><p class="small">索引是一份可重新制作的查找目录；重建不会改动原文。P1-B 才处理用户修正的生效与撤回。</p>
+<div class="filters"><label>来源<select id="source-filter"><option value="">全部来源</option></select></label><label>分支<select id="branch-filter"><option value="*">全部分支</option></select></label></div><p id="memory-count" class="muted"></p><div id="memory-list" class="cards"></div><details class="panel"><summary>管理已导入的文件</summary><p class="small">撤销整批导入会移除该原文件和只属于该批的消息、索引。若其他批次也保存同一消息，它会保留。不会删除你的外部源文件或备份；这不是用户纠正的撤回。</p><div id="batches"></div></details></section>
+<section id="screen-search" aria-labelledby="search-title" hidden><p class="eyebrow">每次找到，都能核对</p><h2 id="search-title">在原文中查找</h2><form id="search-form"><label for="query">输入原文中的词句</label><div class="search-row"><input id="query" type="search" placeholder="试试：松湾 / evidence / Вчера" required><button class="primary">查找原文</button></div></form><p class="small">按连续字面词句匹配，忽略英文/俄文大小写。不翻译、不做语义召回、不生成回答。</p><p id="search-count" role="status"></p><div id="search-results" class="cards"><div class="empty">先导入示例，再试着找到一句原话。</div></div></section>
+<footer>原件可追溯 · 关系由你定义 · 尚未接入模型<br><span>虚构数据的工程检查，不代表跨模型连续性或用户研究已获验证。</span></footer>
+</main>
+<dialog id="provenance" aria-labelledby="provenance-title"><div class="section-heading"><h2 id="provenance-title">这条记录的出处</h2><button id="close-provenance" autofocus>关闭</button></div><div id="provenance-content"></div></dialog>
+<dialog id="remove-dialog" aria-labelledby="remove-title"><h2 id="remove-title">撤销这次导入？</h2><p id="remove-description"></p><p>该批保存的原文件将从本应用移除。其他批次仍引用的消息会保留。之后可重新预览并导入源文件。</p><div class="actions"><button id="cancel-remove">保留</button><button id="confirm-remove" class="danger">确认撤销整批</button></div></dialog>
+</body></html>
