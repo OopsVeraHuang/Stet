@@ -125,8 +125,8 @@
     },
     {
       "path": "docs/status.md",
-      "bytes": 4036,
-      "sha256": "b58528934f1cceb810dccf8962efd9ca1661604c4c9b4c78d34ac3bba382bc6b"
+      "bytes": 4818,
+      "sha256": "72fb382673caab7b9f88b81108e18d201f97154fb4dd171be722a5135bdd1816"
     },
     {
       "path": "examples/cases.json",
