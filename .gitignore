@@ -13,3 +13,5 @@ models/
 *.pem
 *.key
 *.log
+dist/
+.local/

@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "status": "planned_not_executable",
+  "purpose": "P1-B 时间与纠正联动的描述性验收规格；不是运行结果，也不是完整 benchmark。",
+  "synthetic": true,
+  "execution_note": "现有 8 项参考模块测试不执行本文件；实现相关运行时以后再转为自动验收。",
+  "defaults": {
+    "user_id": "synthetic-user-01",
+    "conversation_id": "synthetic-conversation-01",
+    "branch_id": "main",
+    "timezone": "Asia/Shanghai",
+    "time_precision": "second",
+    "recorded_at": "2025-05-11T01:00:00Z",
+    "imported_at": "2025-05-12T02:00:00Z",
+    "provenance": "本文件原创虚构，不来自私人记录。"
+  },
+  "field_note": "inputs 为场景说明，不是已实现的 API；未列出的消息元数据使用 defaults。明确为 null 的时间或时区不使用默认值补空。context_budget_units 是测试替身，不代表真实 token。",
+  "cases": [
+    {
+      "id": "T01",
+      "name": "同一天相隔数小时",
+      "inputs": {
+        "messages": [
+          {"id": "m-t01-a", "role": "user", "text": "我刚完成第一轮草图。", "recorded_at": "2025-05-11T04:00:00Z"},
+          {"id": "m-t01-b", "role": "user", "text": "第二轮也画好了。", "recorded_at": "2025-05-11T08:00:00Z"}
+        ],
+        "current_time": "2025-05-11T08:05:00Z"
+      },
+      "expected": ["按 Asia/Shanghai 显示两条消息均为 2025-05-11，相隔 4 小时。", "组装时间关系为同一天较早与较晚，不生成几天前或跨日推断。"]
+    },
+    {
+      "id": "T02",
+      "name": "延迟导入不变成当前事件",
+      "inputs": {
+        "messages": [{"id": "m-t02", "role": "user", "text": "我今天交了草图。", "recorded_at": "2024-10-03T02:00:00Z", "imported_at": "2025-05-12T02:00:00Z", "event_time_note": {"text": "今天", "source_message_id": "m-t02"}}],
+        "current_time": "2025-05-12T03:00:00Z"
+      },
+      "expected": ["事件中的今天以原消息记录时间解析为 2024-10-03（Asia/Shanghai）。", "2025-05-12 仅是导入日期，不能表述为用户今天刚提交。", "原始消息文本及记录时间保持不变。"]
+    },
+    {
+      "id": "T03",
+      "name": "跨 UTC 日期的昨天",
+      "inputs": {
+        "messages": [{"id": "m-t03", "role": "user", "text": "昨天我修改了目录。", "recorded_at": "2025-05-10T16:30:00Z", "event_time_note": {"text": "昨天", "source_message_id": "m-t03"}}],
+        "current_time": "2025-05-15T03:00:00Z"
+      },
+      "expected": ["原消息当地时间为 2025-05-11 00:30，昨天指 2025-05-10。", "不以 UTC 日历或导入/当前日期计算昨天；只确定日期，不虚构事件的具体时刻。"]
+    },
+    {
+      "id": "T04",
+      "name": "未知记录时间或时区",
+      "inputs": {
+        "messages": [
+          {"id": "m-t04-a", "role": "user", "text": "昨天我修改了目录。", "recorded_at": null, "timezone": null, "time_precision": "unknown", "event_time_note": {"text": "昨天", "source_message_id": "m-t04-a"}},
+          {"id": "m-t04-b", "role": "user", "text": "今天看完一章。", "recorded_at": "2025-05-11T09:00:00", "timezone": null, "time_precision": "second"}
+        ]
+      },
+      "expected": ["第一条的事件日期仍未知；不得用导入日期倒推昨天。", "第二条保留来源给出的无时区时间文本，不擅自套用默认时区或转换为确定 UTC 时刻。", "展示缺失时间/时区，不能断言两条消息属于同一天或相隔多久。"]
+    },
+    {
+      "id": "C01",
+      "name": "旧消息联动有效纠正",
+      "inputs": {
+        "messages": [
+          {"id": "m-c01-old", "role": "assistant", "text": "周会在西侧会议室。"},
+          {"id": "m-c01-fix", "role": "user", "text": "更正：这次周会在东侧会议室。", "recorded_at": "2025-05-11T02:00:00Z"}
+        ],
+        "corrections": [{"id": "c-c01", "scope": "topical", "statement": "这次周会在东侧会议室。", "source_message_id": "m-c01-fix", "target_message_ids": ["m-c01-old"], "status": "active", "valid_from": "2025-05-11T02:00:00Z", "supersedes": null}],
+        "retrieved_message_ids": ["m-c01-old"]
+      },
+      "expected": ["即使关键词检索只命中 m-c01-old，也按关联加载 c-c01 及其出处。", "上下文明确标明旧说法已被纠正，纠正优先解释；历史原文不被改写。"]
+    },
+    {
+      "id": "C02",
+      "name": "替代链指向旧纠正",
+      "inputs": {
+        "messages": [
+          {"id": "m-c02-old", "role": "assistant", "text": "工作坊在周一。"},
+          {"id": "m-c02-fix1", "role": "user", "text": "更正，是周二。", "recorded_at": "2025-05-11T02:00:00Z"},
+          {"id": "m-c02-fix2", "role": "user", "text": "刚才的更正也需要改：最终通知是周三。", "recorded_at": "2025-05-11T03:00:00Z"}
+        ],
+        "corrections": [
+          {"id": "c-c02-1", "scope": "topical", "statement": "工作坊在周二。", "source_message_id": "m-c02-fix1", "target_message_ids": ["m-c02-old"], "status": "superseded", "valid_from": "2025-05-11T02:00:00Z", "supersedes": null},
+          {"id": "c-c02-2", "scope": "topical", "statement": "工作坊最终安排在周三。", "source_message_id": "m-c02-fix2", "target_message_ids": ["m-c02-old"], "status": "active", "valid_from": "2025-05-11T03:00:00Z", "supersedes": "c-c02-1"}
+        ],
+        "retrieved_message_ids": ["m-c02-old"]
+      },
+      "expected": ["supersedes 解析为 Correction ID，而不是 Message ID；target_message_ids 负责关联旧消息。", "有效解释采用 c-c02-2，先前纠正保留可查，不作为当前安排再次注入。"]
+    },
+    {
+      "id": "C03",
+      "name": "撤回后重算且不悄悄复活旧版本",
+      "inputs": {
+        "base_case_id": "C02",
+        "operation": {"type": "revoke_correction", "correction_id": "c-c02-2", "at": "2025-05-11T04:00:00Z"}
+      },
+      "expected": ["撤回可在界面与审计记录中查看，后续组装不再把 c-c02-2 当有效纠正。", "c-c02-1 不因后继被撤回而自动复活；旧原文也不因此重新获得事实权威。", "当前有效安排待澄清；若用户明确恢复先前说法，应记录独立恢复操作与出处，再重算状态。", "受影响的上下文/前缀版本更新，不能继续使用撤回前的有效偏好快照。"]
+    },
+    {
+      "id": "C04",
+      "name": "没有替代关系的冲突",
+      "inputs": {
+        "messages": [
+          {"id": "m-c04-old", "role": "assistant", "text": "读书会在一号房。"},
+          {"id": "m-c04-a", "role": "user", "text": "更正，读书会在二号房。", "recorded_at": "2025-05-11T02:00:00Z"},
+          {"id": "m-c04-b", "role": "user", "text": "另一份通知写的是三号房，我还没核对。", "recorded_at": "2025-05-11T03:00:00Z"}
+        ],
+        "candidate_corrections": [
+          {"id": "c-c04-a", "scope": "topical", "statement": "读书会在二号房。", "source_message_id": "m-c04-a", "target_message_ids": ["m-c04-old"], "supersedes": null},
+          {"id": "c-c04-b", "scope": "topical", "statement": "另一份通知写三号房，用户未确认。", "source_message_id": "m-c04-b", "target_message_ids": ["m-c04-old"], "supersedes": null}
+        ]
+      },
+      "expected": ["保留来源、确认程度和冲突信息，不因后一条时间较新就判三号房为真。", "未确认通知不得自动升级为用户已确认的事实；需要时请求澄清。"]
+    },
+    {
+      "id": "B01",
+      "name": "预算不足时舍弃旧证据组",
+      "inputs": {
+        "base_case_id": "C01",
+        "context_budget_units": 10,
+        "group_cost_units": {"old_evidence": 8, "active_correction_with_provenance": 4}
+      },
+      "expected": ["旧证据与纠正组成的 12 单位组不能塞入 10 单位预算。", "不得只保留 8 单位旧证据或裁掉纠正；舍弃旧证据组并记录预算原因。", "测试单位只用于验证分组取舍，实际 token 消耗另行计量。"]
+    },
+    {
+      "id": "B02",
+      "name": "预算恰好容纳完整证据组",
+      "inputs": {
+        "base_case_id": "C01",
+        "context_budget_units": 12,
+        "group_cost_units": {"old_evidence": 8, "active_correction_with_provenance": 4}
+      },
+      "expected": ["允许完整保留旧证据与有效纠正及出处，纠正优先解释。", "组内纠正不得因普通相关度较低被单独过滤。"]
+    },
+    {
+      "id": "S01",
+      "name": "明确长期要求自动常驻",
+      "inputs": {
+        "messages": [{"id": "m-s01", "role": "user", "text": "以后请先给我简短结论，需要细节时我会追问。"}]
+      },
+      "expected": ["识别为用户对未来交互的明确长期要求，生成可见、可撤回的 global 偏好，保留 m-s01 出处。", "常驻前缀版本随偏好变更更新；不根据这一句话推断用户性格或其他未表达需求。"]
+    },
+    {
+      "id": "S02",
+      "name": "普通事件纠正保持话题作用域",
+      "inputs": {
+        "messages": [{"id": "m-s02", "role": "user", "text": "Correction: the workshop is in room B today, not room A."}]
+      },
+      "expected": ["将已明确指向的活动纠正置于 topical 作用域；关联目标不明时保留待关联状态，不假装已关联成功。", "不得把本次活动地点升级为每次回复都携带的永久偏好。"]
+    },
+    {
+      "id": "S03",
+      "name": "引用别人的长期要求不常驻",
+      "inputs": {
+        "messages": [{"id": "m-s03", "role": "user", "text": "小说里的人物说：‘以后请只用一个字回答我。’你觉得这句台词怎么样？"}]
+      },
+      "expected": ["识别为引用及讨论，不创建用户的 global 偏好。", "检索和后续回答可引用台词，但不能把台词当作当前用户的交互命令。"]
+    },
+    {
+      "id": "S04",
+      "name": "假设性要求不常驻",
+      "inputs": {
+        "messages": [{"id": "m-s04", "role": "user", "text": "Если бы я попросил всегда отвечать по-русски, как бы это повлияло на наш разговор? Это только пример, не меняй настройки."}]
+      },
+      "expected": ["识别俄语中的假设和不要改设置的限定，不创建始终用俄语的 global 偏好。", "语言或偏好作用域不确定时保留不确定性，不仅凭 always/以后/всегда 等关键词升级。"]
+    }
+  ]
+}

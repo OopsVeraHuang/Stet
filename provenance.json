@@ -6,25 +6,34 @@
       "module": "recall.py",
       "source_sha256": "40fe544eb7f7bc57ce388a9992710bbdf221c51e6ec7bb7433b289b25b504f61",
       "prepared_sha256": "099d50f78455042044aca854249748ebf74680783e3aa3a9c9857ed32be98cfd",
-      "changes": "Personal labels generalized; environment variable renamed; no data or credentials copied."
+      "changes": "Personal labels generalized; environment variable renamed; no data or credentials copied.",
+      "prepared_hash_scope": "Windows working-tree CRLF bytes at initial preparation on 2026-10-23",
+      "git_blob_sha256": "1530a95779c4ce7dbf717f1774436267ac95355605b084b680809e548445b0f2"
     },
     {
       "module": "semantic_memory.py",
       "source_sha256": "991f061c98f77cb39965d8543c91fdd9bd2176f2557e21d89cb242acb7fa76c1",
       "prepared_sha256": "40b98cac4186908bb1ef647adececb5181be23954995118583b409bbcfcde422",
-      "changes": "Personal labels generalized; environment variable renamed; no data or credentials copied."
+      "changes": "Personal labels generalized; environment variable renamed; no data or credentials copied.",
+      "prepared_hash_scope": "Windows working-tree CRLF bytes at initial preparation on 2026-10-23",
+      "git_blob_sha256": "a3e8036ea7e423c2f189c16039596bdcb5804400bb79b252c05ca127c69194b7"
     },
     {
       "module": "context_policy.py",
       "source_sha256": "aa683813885717d2eee9aed4321f2168fd6fcc9657808e93f00ecbe32f821ba2",
       "prepared_sha256": "abb02dbc396dba1b612a41a009307b2854cc9c61719a7f50ebe2b8bb77b67a75",
-      "changes": "Personal labels generalized; environment variable renamed; no data or credentials copied."
+      "changes": "Personal labels generalized; environment variable renamed; no data or credentials copied.",
+      "prepared_hash_scope": "Windows working-tree CRLF bytes at initial preparation on 2026-10-23",
+      "git_blob_sha256": "aa683813885717d2eee9aed4321f2168fd6fcc9657808e93f00ecbe32f821ba2"
     },
     {
       "module": "temporal.py",
       "source_sha256": "954296ab0136ce9892748abf97abb350f04c793e217e06b6f04d6b4ca9913737",
       "prepared_sha256": "f772c02701e2137e0fc33daa58846db012e1a1c5017d1f12a6b725bf0b266e9d",
-      "changes": "Personal labels generalized; environment variable renamed; no data or credentials copied."
+      "changes": "Personal labels generalized; environment variable renamed; no data or credentials copied.",
+      "prepared_hash_scope": "Windows working-tree CRLF bytes at initial preparation on 2026-10-23",
+      "git_blob_sha256": "954296ab0136ce9892748abf97abb350f04c793e217e06b6f04d6b4ca9913737"
     }
-  ]
+  ],
+  "hash_note": "Original preparation hashes retained. git_blob_sha256 describes LF repository/export bytes; no reference module logic changed."
 }

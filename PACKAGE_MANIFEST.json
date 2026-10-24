@@ -1,45 +1,52 @@
 {
+  "date": "2026-10-24",
   "scope": "P0 curated source and synthetic fixtures; no full application",
+  "hash_scope": "exact staged Git blob bytes; manifest itself excluded",
   "files": [
     {
+      "path": ".gitattributes",
+      "bytes": 19,
+      "sha256": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c"
+    },
+    {
       "path": ".gitignore",
-      "bytes": 121,
-      "sha256": "7c678b3358df955894f4e987f48028dc3796d67ade574dc3657b393716323cb6"
+      "bytes": 135,
+      "sha256": "ad7dcd381eddd209669fa0ed5535aa6a0d4e55f345b2e291168795867d906db9"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 2136,
-      "sha256": "7f607a1c6106aebe6606b1f7e099d39293a1941c1fb9c2e622b961132595b5de"
+      "bytes": 2797,
+      "sha256": "1902a82e0145e823632206a980c73d999029aa5d1d0972e042b0ad8cdc28f043"
     },
     {
       "path": "NEXT_AGENT.md",
-      "bytes": 2082,
-      "sha256": "3e847946c272c13eec2895b7b9015f44900d592dafecd4749247e5daf595a81c"
+      "bytes": 2735,
+      "sha256": "f4143384a2b13b26b706e952d3c123e86fa8e013a68d2840d2d82a313c03f1f8"
     },
     {
       "path": "README.md",
-      "bytes": 2019,
-      "sha256": "d1021952873f3fb7742cb8e4de848f0a82c9a721b14b17f20a9bcd5f91daf3ca"
+      "bytes": 2434,
+      "sha256": "146b33bd22f8dfa4047ee0637d52beb154f7ee0c324a19a7e8621d3a4a97950c"
     },
     {
       "path": "docs/01-project.md",
-      "bytes": 3711,
-      "sha256": "459b1463249637c55ee7c0de72dc4d216e63cc0da92175758b7b511130534db6"
+      "bytes": 5842,
+      "sha256": "6d54e91a679bfcee64d20890f11f3209f6d358b457a278fec679e7e46fd5ef3b"
     },
     {
       "path": "docs/02-architecture.md",
-      "bytes": 4902,
-      "sha256": "ef01a5f587470b6630e21738cb4647e412458ee678fedc5cddfb84667bc318de"
+      "bytes": 9657,
+      "sha256": "aab0f235d182d6c70dbb68af0e0da60963e28eaeb21e71a33bc19e890d4c9dd1"
     },
     {
       "path": "docs/03-evaluation.md",
-      "bytes": 3147,
-      "sha256": "de6a34bc91eac63c08eadcc99a3a3f00f8663325d8ab5312935ac604ec1af23d"
+      "bytes": 5914,
+      "sha256": "0963c3f8502d682573589b07bed926bfdb4e3fb743f6996db29473d3e680808f"
     },
     {
       "path": "docs/04-roadmap.md",
-      "bytes": 2422,
-      "sha256": "4085a46c1e086b57875abfd54ef6bf4ce5c34343cb11da2a95e19595f86c27c5"
+      "bytes": 2482,
+      "sha256": "ec1b6a33dcd5174733aee77f810363e861bc49ba2784d41714dc117653176624"
     },
     {
       "path": "docs/05-lineage.md",
@@ -48,13 +55,13 @@
     },
     {
       "path": "docs/06-feature-status.md",
-      "bytes": 1155,
-      "sha256": "463cd05e6e5f052c66a9c6ebf98301a0dd8840b13850c123da1512b7d293d939"
+      "bytes": 1425,
+      "sha256": "5bcea1fc02ab0e001498b2755dd9322c8cced8d02e7eb05845b8f767c0fd86cd"
     },
     {
       "path": "docs/07-release.md",
-      "bytes": 1609,
-      "sha256": "975b1f56ee5c424846434cc2c242ddb7add94a10f1c265797324e56292a74e2d"
+      "bytes": 2074,
+      "sha256": "d9a38ba61fcab1e2a802c66b79c359b335025d569dc0dc60d8cc265d7b8e6f91"
     },
     {
       "path": "docs/08-migration-audit.md",
@@ -63,18 +70,28 @@
     },
     {
       "path": "docs/09-verification.md",
-      "bytes": 786,
-      "sha256": "d66c3f2ba49c27929a3c44aeb6a3169bf9f704f9adc8042804df9d98658a4411"
+      "bytes": 3341,
+      "sha256": "af1ec10b2f835ed760b26881933c714bbb87565f2679786e7fa7cb599dc5fe22"
+    },
+    {
+      "path": "docs/10-cloud-development.md",
+      "bytes": 2751,
+      "sha256": "71661f59c8c5e3186bc295cf1bfba2c71cef62b0532f9fdd2e1c0c1a113f9ffe"
     },
     {
       "path": "docs/status.md",
-      "bytes": 306,
-      "sha256": "5aeed3f281064412d6668ac1f72d212762d577b15b55fb6ee1a3ec398429b6d1"
+      "bytes": 1037,
+      "sha256": "6275d9c47854621f2560a8854832846ff7524e001aaf55232a8ac1308a452e32"
     },
     {
       "path": "examples/cases.json",
       "bytes": 838,
       "sha256": "6779a9062dff4ad1ba2272b27deb567aaeb886e576610e044e59dee8f55837c3"
+    },
+    {
+      "path": "examples/governance-cases.json",
+      "bytes": 10565,
+      "sha256": "c0a5ff7457bdcfe35986d81859357295f0ea1bd8720ddeea10194e14899e1f00"
     },
     {
       "path": "examples/messages.json",
@@ -83,8 +100,8 @@
     },
     {
       "path": "provenance.json",
-      "bytes": 1462,
-      "sha256": "6faefa2318ac0f06dbe10c58ce638c8143a14ab56394af3971ced5fff6ea3c36"
+      "bytes": 2383,
+      "sha256": "ca10c9ab0b4378a6917dd8a26e4a624c864d5e11e942b1006432c1f0a7c77f0d"
     },
     {
       "path": "reference_core/context_policy.py",
@@ -112,10 +129,14 @@
       "sha256": "484a0d73a0674a27682f2e5f1736eff1934bbab2e0017ece15ccff1706c0ac2c"
     },
     {
+      "path": "tools/package.py",
+      "bytes": 7051,
+      "sha256": "97a43ec2a2d1244ebf96f077c9f38b50e14d1a0fff4e523ff303beb7c168fb16"
+    },
+    {
       "path": "检查交接包.cmd",
-      "bytes": 154,
-      "sha256": "5f35fc25053666984929b3ec42da527d5e09743ec1d18ea5656c0023d1596534"
+      "bytes": 399,
+      "sha256": "e0c85b7f1d1c49047bc2c2e2ecf19227725de770b8375fbd899fbe3d2a4f8690"
     }
-  ],
-  "hash_scope": "exact Git-export bytes"
+  ]
 }

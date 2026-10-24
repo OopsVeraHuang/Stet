@@ -6,7 +6,7 @@
 
 这是 **P0 原型开发交接仓库**，不是已经可安装使用的完整 Web App，也没有公开发布。它包含产品与研究计划、工程路线、经过筛选的记忆模块、完全虚构的样例及离线测试。完整界面、服务端适配器和供应商接口将在新开发窗口接入。
 
-先读 [面向非工程师的项目说明](docs/01-project.md)，再读 [实施顺序](docs/04-roadmap.md)。给下一位编码助手的任务在 [NEXT_AGENT.md](NEXT_AGENT.md)。
+先读 [面向非工程师的项目说明](docs/01-project.md)，再读 [实施顺序](docs/04-roadmap.md)。给下一位编码助手的任务在 [NEXT_AGENT.md](NEXT_AGENT.md)。本地与云端的使用步骤见 [开发环境说明](docs/10-cloud-development.md)。
 
 ## 今天可以验证什么
 
@@ -14,6 +14,7 @@
 
 ```powershell
 python -m unittest discover -s tests -v
+python tools/package.py verify
 ```
 
 测试仅使用虚构文本和标准库，不连接网络，不使用 API，不下载模型，不涉及私人记录。也可双击 `检查交接包.cmd`，前提是电脑已安装可通过 `python` 或 `py` 调用的 Python。
@@ -32,4 +33,6 @@ python -m unittest discover -s tests -v
 
 **没有打包**私人聊天、私人 persona、数据库、账单、账户登录、API key、服务器连接信息、电子书、音频、模型权重或第三方教程全文。
 
-尚未选择项目整体开源许可证；详见 `docs/07-release.md`。本地 Git 只保存这个起步包，不是将私人项目上传到 GitHub。
+时间与纠正联动的新增契约见架构文档；`examples/governance-cases.json` 是下一阶段待实现的验收规格，不是已通过的功能测试。
+
+工程使用 Git 保存版本，并向项目所有者指定的私有 GitHub 仓库同步。仓库保存的是这个净化起步包；每位使用者的运行数据与凭据独立保存。尚未选择项目整体开源许可证，也没有公开发布；详见 `docs/07-release.md`。
