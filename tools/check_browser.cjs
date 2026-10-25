@@ -10,7 +10,7 @@ const root = path.resolve(__dirname, '..');
 const profile = fs.mkdtempSync(path.join(os.tmpdir(),'continuity-browser-'));
 const output = path.join(root,'.local','browser-check');
 fs.mkdirSync(output,{recursive:true});
-const server = spawn(process.env.CONTINUITY_PYTHON || 'python', ['-m','continuity','--data-dir',profile],{cwd:root,stdio:['ignore','pipe','pipe']});
+const server = spawn(process.env.CONTINUITY_PYTHON || 'python', ['-u','-c','from continuity.server import main; main()','--data-dir',profile],{cwd:root,stdio:['ignore','pipe','pipe']});
 let browser;
 (async()=>{
   const url = await new Promise((resolve,reject)=>{

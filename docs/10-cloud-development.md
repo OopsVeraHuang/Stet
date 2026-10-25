@@ -1,34 +1,62 @@
-# 本地、GitHub 与云端开发
+# 本地与云端开发
 
-Git 是修改历史；GitHub 是存放这份历史的远程仓库；Codex 云环境是在另一台机器上读写代码、运行测试的开发环境。应用服务器才负责持续提供聊天网页。仓库上传不会自动启动完整应用，也不会同步任何使用者的 SQLite 数据库。
+GitHub 保存工程，开发环境运行代码，应用服务器持续提供访问。上传 GitHub 不等于上线。每个环境有自己的 profile 和密钥，不能把 SQLite 或登录凭据提交共享。
 
-## 当前阶段
+## 应用安装
 
-本仓库已完成 P1-A 本机三屏工作台，入口为 `python -X utf8 -m continuity --open`。无需 API key、语义模型、额外 Python 依赖或购买服务。P0 文档与参考模块继续保留；P1-B 尚未实现。操作说明见 `docs/11-p1a-workbench.md`。
-
-本地和云端均使用 Python 3.11+；建议云环境选 Python 3.12。基础检查只用标准库，不需要 pip install。在仓库根目录执行：
+Python 3.11+，从仓库根目录安装 requirements.txt。推荐虚拟环境；Windows 用 .venv/Scripts/python，Linux/macOS 用 .venv/bin/python。
 
 ```text
-python -X utf8 -m unittest discover -s tests -v
-python -X utf8 tools/package.py verify
+python -m venv .venv
+python -m pip install -r requirements.txt
+python -X utf8 -m continuity --port 8780 --data-dir .local/my-profile
 ```
 
-Linux 若只有 `python3`，将命令里的 `python` 换成 `python3`。Windows 的 `检查交接包.cmd` 不是 Linux 启动脚本。目前 25 项测试包含原有 8 项参考函数检查及 17 项 P1-A 检查；其中 3 项 HTTP 测试需本机回环端口权限。治理案例仍为 `planned_not_executable`，不计入通过数。
+上面后两行的 python 请使用刚建立的虚拟环境解释器。默认只监听 127.0.0.1。浏览、导入、读书不请求模型；不填供应商密钥也能检查这些功能。当前平台不是纯标准库程序，Pillow 等应用依赖必须安装。没有配置云端公开访问，本地 URL 在云端属于那台机器。
 
-## 原 P0 云环境设置说明（历史记录）
+## 免费本地语义检索（可选）
 
-> 请使用我选中的这个私有仓库，检查 main 的最新提交。读取 README.md 和 AGENTS.md。这是仅使用 Python 标准库测试的 P0 交接工程，请准备 Python 3.12 并运行上述两条离线检查。不要安装 Web 框架、下载模型、填写供应商密钥或启动付费服务。记录实际检查结果和环境；如果没有应用入口，请如实说明本阶段只有文档、参考模块和测试。准备完成后给出配置报告。
+```text
+python -m pip install -r requirements-semantic.txt
+python tools/install_semantic.py
+```
 
-上段是 P0 时的设置说明，当前 P1-A 启动与验收以本页及第 11 号文档为准。设置任务完成后，检查报告并在界面选择发布环境，再开始新任务。云环境的“发布”是保存供后续任务使用的开发环境，不是公开 GitHub 仓库或部署网站。若旧环境是在空仓库上建立的，重新打开环境设置核验最新文件与检查结果。仅凭仓库上传成功不能宣称云环境已发布或 Linux 测试已通过。
+下载固定版本公共 ONNX 权重并逐文件核对 SHA-256，约百 MB 量级，本地存入被 Git 忽略的 .local/models。没有 embedding API 账单，不训练人格。首次下载需要网络，使用需 CPU/内存；不下载时保留词句召回，无付费回退。
 
-参考：[Codex 云环境官方文档](https://learn.chatgpt.com/docs/environments/cloud-environments)（2026-10-24 核对）。
+PowerShell：
+```powershell
+$env:CONTINUITY_SEMANTIC_MODEL=(Resolve-Path .local/models/multilingual-minilm).Path
+python -m continuity --data-dir .local/my-profile --open
+```
 
-## 开始原型开发
+Linux/macOS：
+```sh
+export CONTINUITY_SEMANTIC_MODEL="$PWD/.local/models/multilingual-minilm"
+python -m continuity --data-dir .local/my-profile
+```
 
-在新的本地或云端任务中粘贴 `NEXT_AGENT.md` 的全部内容。任务必须检出本仓库，先核对分支、现有修改和未合并 PR，再依据当前状态继续；不要重复建设已完成的 P1-A。完成一个切片后保存提交、更新功能状态；功能修改建议走分支/PR。未提交或未推送的本地改动不会自动出现在别的电脑。
+## 分层检查
 
-GitHub 连接器的授权与电脑 Git 的登录可能是分开的。保留完整提交历史的 push 如需登录，使用 Git Credential Manager 的正常 GitHub 登录流程，不把密码、访问令牌或 OAuth 文件放进聊天、仓库或交接包。
+```text
+python -m unittest discover -s tests -v
+python tools/package.py verify
+python tools/check_semantic.py
+```
 
-## P1-A 的本机访问边界
+前两项不需权重或模型网络；第三项需要已安装语义依赖及上述环境变量，只使用合成中英俄文本，不能当成完整质量评测。
 
-服务自动选择未占用端口，仅绑定 `127.0.0.1`。云端地址不是本地电脑的地址；本轮不创建公网转发或部署。用户体验可下载私有 PR 功能分支 ZIP 到自己的电脑，解压后运行 `启动原型.cmd`。浏览器开发验收使用环境已有的 Playwright/Chromium：`node tools/check_browser.cjs`，临时数据自动隔离，截图留在被忽略的 `.local/browser-check/`；它是可选开发检查，不是应用依赖。
+可选浏览器检查需要自行安装 Playwright 和 Chromium/Edge；不为普通使用者强制安装。环境变量 CONTINUITY_PYTHON 指向 Python、CONTINUITY_CHROMIUM 指向浏览器；完整平台检查默认 Windows Edge。
+
+```text
+node tools/check_browser.cjs
+node tools/check_platform_browser.cjs
+```
+
+前者保留旧导入工作台回归，后者检查完整平台；均创建临时合成 profile，禁止外部页面请求，不申请摄像头、不调用真实模型。截图只写 .local。完整测试服务器中的聊天清楚标为合成演示，不进入普通启动实例。
+
+旧标准库切片仍可单独启动：
+```text
+python -c "from continuity.server import main; main()"
+```
+
+打包步骤见 docs/09-verification.md。没有 Git 的解压包可 verify；每次修改后必须刷新 staged 字节清单。不同操作系统须实际测试，不能把 Windows 通过写成 Linux 通过。

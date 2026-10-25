@@ -2,54 +2,50 @@
 
 **User-governed memory for continuity across AI models.**
 
-暂用工作名，尚未检查商标或项目重名。定位：支持长期关系与持续协作的个人 Agent 研究平台。
+支持长期协作、学习与陪伴的个人 Agent 研究平台，关系由用户定义。工作名未检查重名。
 
-这是从 P0 起步包建设出的 **P1-A 本机记忆工作台**：可预览并确认导入规范 JSON/MD、浏览原文、按字面词句检索并打开出处。尚未接入语义模型、修正生效机制或回答模型，也没有公开发布。产品与研究计划、参考模块、虚构样例和离线测试继续保留。
+**默认打开聊天，继承先导应用的灰紫 UI。** 聊天、模型选择、带出处记忆、资料库、PDF/EPUB 共读、米色学习笔记与视频模块已迁入独立原型；原 JSON/MD 工作台保留为导入入口。功能迁入不代表所有供应商或真实手机功能已验收。[功能与验证边界](docs/12-platform-migration.md)
 
-先读 [面向非工程师的项目说明](docs/01-project.md)，再读 [实施顺序](docs/04-roadmap.md)。给下一位编码助手的任务在 [NEXT_AGENT.md](NEXT_AGENT.md)。本地与云端的使用步骤见 [开发环境说明](docs/10-cloud-development.md)。
+## 启动
 
-## 先点起来
-
-Windows：双击 `启动原型.cmd`（需要已有 Python 3.11+），浏览器会自动打开。
-
-其他系统在本仓库目录运行：
+需要 Python 3.11+。独立虚拟环境安装依赖（一次性下载，不订阅服务）：
 
 ```text
-python -X utf8 -m continuity --open
+python -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -X utf8 -m continuity --open
 ```
 
-无需安装额外包、填写 API key 或下载模型。只监听本机 `127.0.0.1`，自动选择空闲端口；关闭启动窗口或按 Ctrl+C 停止。运行数据保存在本仓库被 Git 忽略的 `.local/continuity/`，独立于任何其他项目。也可用 `--data-dir` 指定一个独立目录。
+Windows 完成安装后双击 `启动原型.cmd`。Linux/macOS 使用 `.venv/bin/python`。默认端口 8780，被占用可加 `--port 0` 自动选择。数据默认在 `~/.continuity/default`，可用 `--data-dir` 指定独立目录。每个实例须用不同目录；Git 不包含数据和凭据。
 
-点击「预览 JSON 示例」→「确认导入」应得到 6 条记录；到「原文检索」查“松湾”应找到 2 条，点「查看出处」核对完整原文。再导入 MD 示例可查看不同分支，总计 10 条。详见 [三屏体验与局限](docs/11-p1a-workbench.md)。
+没有密钥也可以导入、查原文、编辑资料、阅读和做笔记。生成回答需要在「连接与预算」填写自己的 Gemini/DeepSeek 密钥并启用调用。默认关闭模型调用；价格和模型目录是继承快照，须核对后使用。不会读取私人应用账户。
 
-云开发环境中的本机地址属于云端机器，不能在你的电脑直接打开。可从私有 PR 下载功能分支 ZIP，解压后双击启动文件；这不要求部署公网。
+## 可以怎样体验
 
-## 今天可以验证什么
+1. 「导入历史记录」→ 预览 JSON 示例 → 确认导入：6 条虚构记录。点击「回到对话」。
+2. 「记忆」搜索“松湾”核对原文；聊天也从同一导入档案检索，不生成假的演示回复。
+3. 「资料库」上传 PDF/DOCX/TXT/MD 或创建文字文件；「书架」导入 PDF/EPUB，与聊天并排，讨论只带当前片段。
+4. 有对话后开启「学习模式」，右键/长按消息收藏、批注、返回原对话。笔记参与同一检索；收藏不自动等于用户认可。
+5. 「视频」有本地预览与通话入口。通话需密钥且会计费，实机和 iPhone 尚待验收；后台/锁屏通话不支持。预览不上传。
 
-安装有 Python 3.11+ 的电脑上，在此文件夹运行：
+可选本地中英俄语义检索需要 requirements-semantic.txt 和独立权重，见 [开发说明](docs/10-cloud-development.md)。未安装时仍可词句检索，不会自动改用付费 embedding。
 
-```powershell
+## 验证
+
+```text
 python -m unittest discover -s tests -v
 python tools/package.py verify
 ```
 
-测试仅使用虚构文本和标准库，不连接外部网络，不使用模型 API，不下载模型，不涉及私人记录。P1-A 的 HTTP 集成测试需允许本机回环端口。也可双击 `检查交接包.cmd`，前提是电脑已安装可通过 `python` 或 `py` 调用的 Python。
+测试用合成资料和模拟供应商响应，不调用付费 API；应用测试需要 requirements.txt。HTTP 测试需回环端口。合成通过不证明人格稳定、真实账单降低或用户研究成功。
 
-`reference_core/` 是从私人先导系统整理的参考实现，不是独立的完整后端。语义检索需要额外模型、依赖和 API 适配器；基础测试不代表已验证语义召回质量。
-
-## 文件怎么找
-
-| 文件夹 | 用途 |
+| 路径 | 内容 |
 |---|---|
-| docs | 定位、架构、实验设计、实施步骤、经验与发布边界 |
-| continuity | P1-A 导入、SQLite 档案、本机服务与三屏界面 |
-| reference_core | 词句与语义融合、时间处理、短窗口策略 |
-| examples | 全部虚构的中英俄消息与评测用例 |
-| tests | 不花 API 费用的基本回归测试 |
-| provenance.json | 参考代码的来源哈希及处理记录 |
+| app | 净化后的平台、工具、阅读/笔记、视频、记忆 |
+| continuity | 原件导入工作台、默认启动入口 |
+| reference_core | 最初保留的记忆参考模块 |
+| examples / tests | 合成记录、验收规格和运行测试 |
+| docs / NEXT_AGENT.md | 架构、来源、验证和交接 |
+| provenance-platform.json / THIRD_PARTY.md | 来源哈希与第三方说明 |
 
-**没有打包**私人聊天、私人 persona、数据库、账单、账户登录、API key、服务器连接信息、电子书、音频、模型权重或第三方教程全文。
-
-时间与纠正联动的新增契约见架构文档；`examples/governance-cases.json` 是下一阶段待实现的验收规格，不是已通过的功能测试。
-
-工程使用 Git 保存版本，并向项目所有者指定的私有 GitHub 仓库同步。仓库保存净化起步包及后续原型工程；每位使用者的运行数据与凭据独立保存。尚未选择项目整体开源许可证，也没有公开发布；详见 `docs/07-release.md`。
+新治理契约仍待实现，见 [架构](docs/02-architecture.md)。完整平台承载研究，不能缩成只有查询框。StarHub 教程保留致谢，不分发全文。私人原文、人格样例、账单、部署、声音、凭据和模型权重未打包。仓库保持私有，整体开源许可证未选择。

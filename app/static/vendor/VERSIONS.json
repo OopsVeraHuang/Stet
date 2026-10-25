@@ -1,0 +1,11 @@
+{
+  "pdfjs": {
+    "version": "6.3.289",
+    "url": "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-6.3.289.tgz",
+    "sha256": "06f25e887adc6489f04c9fcb14198c77e4e5623a59a0bba5c4cea5838a4f1241"
+  },
+  "foliate": {
+    "commit": "78914aef4466eb960965702401634c2cb348e9b1",
+    "sha256": "d6be760b902713d430f5277b196ed59f444a18f705139debc350cdeb0cf47b42"
+  }
+}

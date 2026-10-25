@@ -1,0 +1,5 @@
+# Optional CPU multilingual retrieval. Weights installed separately with hashes.
+-r requirements.txt
+onnxruntime==1.30.0
+tokenizers==0.23.2
+numpy==2.5.4

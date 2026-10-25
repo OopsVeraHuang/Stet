@@ -1,0 +1,114 @@
+{
+  "source": "owner-authorized private pilot code, read-only extraction; no runtime data",
+  "date": "2026-10-25",
+  "files": [
+    {
+      "file": "app/attachments.py",
+      "source_sha256": "e9b0cd1f8c8f75e2024e1ec8104c3f5535e6e702e0d4ebdb54dadce1e40adea1",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/book_features.py",
+      "source_sha256": "53ed2ccb7624cce0152cc824bdcee144a5c90bd51e56c9d242f0949f9b4be264",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/chat_export.py",
+      "source_sha256": "f70d1636b56f42e1587caea587fa43c84506d357fae52a9bea060912d8c34ccc",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/context_policy.py",
+      "source_sha256": "aa683813885717d2eee9aed4321f2168fd6fcc9657808e93f00ecbe32f821ba2",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/corrections.py",
+      "source_sha256": "2d5222548deb924b4ba6fe0b4cbd5d9b927b933c1d6f085269bbfa372f21e2d6",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/library.py",
+      "source_sha256": "1d7e20270cd6f07bd493db1d762f5724fa468495496f17aae3094aac4699ba6c",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/live_server.py",
+      "source_sha256": "fcfb0ea8a000eee371097228838b80861452f2d18462f16cdfc00f7d575f6b32",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/live_session.py",
+      "source_sha256": "1bdc1ab2d26f0185b3ec56af7d97c609490cbb5ecedad60ff15e8ab7e8aa8d36",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/providers.py",
+      "source_sha256": "ea3fd02abb5e96d79b29c5f067affca8fef89c07050ce69bc3cd0e0bf69b90d6",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/reader.py",
+      "source_sha256": "a8ffaabad2a6c477c819ad97dc6e84e932c0c5edc48815777fb0a353a1c73d10",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/recall.py",
+      "source_sha256": "40fe544eb7f7bc57ce388a9992710bbdf221c51e6ec7bb7433b289b25b504f61",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/remote_access.py",
+      "source_sha256": "8c9c055c1fd22d1e9ae52315d6864033de1a34a5663fbb2a38dc3dc3b72551c2",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/semantic_memory.py",
+      "source_sha256": "991f061c98f77cb39965d8543c91fdd9bd2176f2557e21d89cb242acb7fa76c1",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/server.py",
+      "source_sha256": "d261e6fc69fd36427d2278644e6d7944ea41bced5400c98a0daaee36bf5ee75a",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/spacetime.py",
+      "source_sha256": "70109213438dc68755ef93507eac8fb10837157ebf14630d0a29d0ef005230f9",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/studio.py",
+      "source_sha256": "456280dad09574a6b85b54e906048c8f33726d8fcf2d0eec56dc3a37221b28aa",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/study.py",
+      "source_sha256": "e05e436ee94c585f79fb02c25f8604da42fadb184ab4c5fa14c5597e2833e2eb",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/temporal.py",
+      "source_sha256": "954296ab0136ce9892748abf97abb350f04c793e217e06b6f04d6b4ca9913737",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    },
+    {
+      "file": "app/web_search.py",
+      "source_sha256": "ae262d5f3e6b3b2412a7130d127fdf5abd74b77c727e594336ae8456f4e30102",
+      "handling": "generic code adapted; private names, defaults and location seed removed"
+    }
+  ],
+  "excluded": [
+    "persona guide and example anchors",
+    "location seeds",
+    "all runtime data and credentials",
+    "deployment scripts",
+    "voice samples",
+    "books and tutorial PDFs",
+    "private test fixtures"
+  ],
+  "vendors": {
+    "foliate": "MIT; unchanged files and LICENSE",
+    "pdfjs": "Apache-2.0 and bundled component notices; unchanged"
+  }
+}
