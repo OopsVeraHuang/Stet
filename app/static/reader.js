@@ -1,7 +1,7 @@
 'use strict';
 let pendingReading=null, currentBook=null, bookPage=null, pdfDoc=null, epubView=null, readerBusy=false, readerTextBusy=false;
 let readerEpoch=0, pageEpoch=0, pdfModule, pdfTask, positionQueue=Promise.resolve();
-let readerResizeTimer, readerDrag=false, pdfZoom='fit';
+let readerResizeTimer, readerDrag=false, pdfZoom='fit', failedBookText=null;
 const positionRevisions=new Map();
 function setReaderWidth(value){
   const n=Math.max(35,Math.min(75,Number(value)||58));
@@ -53,10 +53,26 @@ function queuePosition(position){
   positionQueue=positionQueue.catch(()=>{}).then(async()=>{const saved=await api('books/position',{...position,base_revision:positionRevisions.get(position.id)||0});positionRevisions.set(position.id,saved.revision);}).catch(e=>{notify('进度尚未同步：'+e.message);throw e;});
   positionQueue.catch(()=>{});
 }
+function clearBookText(){
+  bookPage=null;pendingReading=null;failedBookText=null;
+  $('booktext').textContent='';$('textscope').textContent='';$('bookposition').textContent='';
+  $('textnext').disabled=true;$('textprev').disabled=true;$('bookretry').hidden=true;
+  readerChip();
+}
 async function loadBookText(unit,offset=0,location='',visible=''){
+  if(!currentBook)return;
   const epoch=++pageEpoch,bid=currentBook.id;
-  readerTextBusy=true;pendingReading=null;readerChip();$('booktext').textContent='正在读取原文…';
-  let page;try{page=await api(`books/read?id=${bid}&unit=${unit}&offset=${offset}`);}finally{if(epoch===pageEpoch){readerTextBusy=false;invalidateQuote();}}
+  clearBookText();readerTextBusy=true;readerChip();$('booktext').textContent='正在读取原文…';
+  let page;
+  try{page=await api(`books/read?id=${bid}&unit=${unit}&offset=${offset}`);}
+  catch(error){
+    if(epoch===pageEpoch&&currentBook?.id===bid){
+      failedBookText={id:bid,unit,offset,location,visible};
+      $('booktext').textContent='原文未加载成功，本轮不会带入旧书页。请重试读取原文。';
+      $('textscope').textContent=error.message;$('bookretry').hidden=false;
+    }
+    throw error;
+  }finally{if(epoch===pageEpoch){readerTextBusy=false;invalidateQuote();}}
   if(epoch!==pageEpoch||currentBook?.id!==bid)return;
   bookPage=page;pendingReading=$('reader').classList.contains('active')?{id:bid,name:currentBook.name,kind:currentBook.kind,unit,offset,location,selection:visible.trim().slice(0,1200)}:null;
   $('bookunit').value=unit;$('bookposition').textContent=`${unit} / ${currentBook.units} ${currentBook.kind==='pdf'?'页':'节'}`;
@@ -99,7 +115,7 @@ async function openBook(id,unitOverride){
   readerBusy=true;let r;
   try{const books=await api('books');r=books.find(b=>b.id===id);if(!r)throw Error('书籍不存在。');}
   catch(e){readerBusy=false;throw e;}
-  ++readerEpoch;++pageEpoch;pendingReading=null;readerChip();
+  ++readerEpoch;++pageEpoch;readerTextBusy=false;clearBookText();
   try{
     if(epubView){epubView.close();epubView.remove();epubView=null;}if(pdfTask){await pdfTask.destroy();pdfTask=null;pdfDoc=null;}
     currentBook=r;bookPage=null;tab('reader');$('readerwork').hidden=false;dockChat();$('booktitle').textContent=r.name;$('bookstage').replaceChildren();
@@ -160,7 +176,8 @@ function initReader(){
   $('bookfont').onchange=()=>epubView?.renderer.setStyles?.(`html{color:#24202b;background:#faf6ed;font-size:${Number($('bookfont').value)}px}body{padding:12px;line-height:1.8}`);
   $('booktext').addEventListener('mouseup',()=>captureSelection(document,$('booktext')));$('booktext').addEventListener('touchend',()=>captureSelection(document,$('booktext')));
   $('bookstage').addEventListener('mouseup',()=>captureSelection(document,$('bookstage')));
-  $('textnext').onclick=()=>bookPage?.next_offset!==null&&loadBookText(bookPage.unit,bookPage.next_offset,pendingReading?.location).catch(e=>notify(e.message));
-  $('textprev').onclick=()=>loadBookText(bookPage.unit,Math.max(0,bookPage.offset-4500),pendingReading?.location).catch(e=>notify(e.message));
+  $('bookretry').onclick=()=>{const p=failedBookText;if(!p||readerTextBusy||currentBook?.id!==p.id)return;loadBookText(p.unit,p.offset,p.location,p.visible).catch(e=>notify(e.message));};
+  $('textnext').onclick=()=>bookPage&&bookPage.next_offset!==null&&loadBookText(bookPage.unit,bookPage.next_offset,pendingReading?.location).catch(e=>notify(e.message));
+  $('textprev').onclick=()=>bookPage&&loadBookText(bookPage.unit,Math.max(0,bookPage.offset-4500),pendingReading?.location).catch(e=>notify(e.message));
   $('bookask').onclick=()=>{$('prompt').focus();$('prompt').scrollIntoView({block:'center',behavior:'smooth'});};
 }

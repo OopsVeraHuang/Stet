@@ -2,7 +2,12 @@
 const $ = id => document.getElementById(id);
 const token = document.querySelector('meta[name="continuity-token"]').content;
 let state, selected = new Map(), offset = 0, mode = 'literal', activeJob = null, polling = false, quoteReady = false;
-let lastFailed = null, retryOf = null;
+let lastFailed = null, retryOf = null, submittingJob = false;
+// A draft belongs to this tab and server session; never reuse it in another profile.
+const textDraftKey='continuity-text-draft:'+token;
+function saveTextDraft(){try{if($('prompt').value)sessionStorage.setItem(textDraftKey,$('prompt').value);else sessionStorage.removeItem(textDraftKey);}catch{}}
+function restoreTextDraft(){try{const draft=sessionStorage.getItem(textDraftKey);if(draft&&!$('prompt').value){$('prompt').value=draft;$('prompt').dispatchEvent(new Event('input'));notify('已恢复未发送的文字草稿；引用和附件请重新选择。');}}catch{}}
+window.addEventListener('pagehide',saveTextDraft);
 let noticeTimer;
 let lastSyncedMessage=0,syncBusy=false;
 const chatReads=new Set();
@@ -26,7 +31,7 @@ function money(n) { return '¥' + Number(n || 0).toFixed(4); }
 function time(iso) { return new Date(iso).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',hour12:false}); }
 function tab(name) { document.querySelectorAll('.panel').forEach(e=>e.classList.toggle('active',e.id===name)); document.querySelectorAll('nav button').forEach(e=>e.classList.toggle('active',e.dataset.tab===name)); document.body.dataset.page=name;document.dispatchEvent(new CustomEvent('continuity-tab',{detail:name})); }
 document.querySelectorAll('nav button').forEach(e=>e.addEventListener('click',()=>tab(e.dataset.tab)));
-function invalidateQuote() { quoteReady=false; $('send').disabled=!hasDraft()||!!activeJob||imageUploadBusy||documentBusy||readerTextBusy; $('quote').textContent='发送时自动找回相关原文，Agent 可以自主补查；费用会逐笔记录。'; $('recallpreview').hidden=true; if(state?.brains?.[state.config.brain]?.provider==='codex')$('quote').textContent='发送将消耗与 Codex 共用的订阅额度；联网搜索费用仍计入本地预算。'; }
+function invalidateQuote() { quoteReady=false; $('send').disabled=!hasDraft()||!!activeJob||submittingJob||imageUploadBusy||documentBusy||readerTextBusy; $('quote').textContent='发送时自动找回相关原文，Agent 可以自主补查；费用会逐笔记录。'; $('recallpreview').hidden=true; if(state?.brains?.[state.config.brain]?.provider==='codex')$('quote').textContent='发送将消耗与 Codex 共用的订阅额度；联网搜索费用仍计入本地预算。'; }
 function renderSelected() {
   retryOf = null;
   $('selected').replaceChildren();
@@ -165,7 +170,12 @@ async function refresh() {
   }
   if(!state.ledger.length)$('ledger').append(el('p','还没有模型费用记录。','footnote'));else{const table=el('table'),head=el('tr');['北京时间','用途','状态','计入额度'].forEach(t=>head.append(el('th',t)));table.append(head);const labels={subscription:'订阅用量',subscription_uncertain:'订阅请求未完成',web_search:'网页搜索',video_call:'音视频试通',chat:'试聊',embedding_document:'建立样本索引',embedding_query:'语义试搜',estimated:'用量估算',conservative_estimate:'保守估算',uncertain:'账单待核对',reserved:'已预留'};for(const r of state.ledger){const row=el('tr');[time(r.time),(r.kind==='chat'?(JSON.parse(r.pricing_json||'{}').model||'Gemini'):(labels[r.kind]||r.kind)),labels[r.status]||r.status,(r.status.startsWith('subscription')?'共享订阅额度':money(r.estimated_rmb??r.reserved_rmb))].forEach(t=>row.append(el('td',t)));table.append(row);}$('ledger').append(table);}
 }
-async function begin(kind,data) {if(activeJob)throw Error('已有任务运行中。');const job=await api('job/'+kind,data);activeJob=job.id; sessionStorage.setItem('continuity-job',job.id);$('orb').classList.add('busy');$('task').textContent=job.event;invalidateQuote();poll();}
+async function begin(kind,data) {
+  if(activeJob||submittingJob)throw Error('已有任务提交或运行中。');
+  submittingJob=true;invalidateQuote();
+  try{const job=await api('job/'+kind,data);activeJob=job.id;sessionStorage.setItem('continuity-job',job.id);$('orb').classList.add('busy');$('task').textContent=job.event;poll();}
+  finally{submittingJob=false;invalidateQuote();}
+}
 async function poll() {
   if(polling||!activeJob||document.hidden)return;clearTimeout(pollTimer);polling=true;
   try {const job=await api('job?view=chat&id='+encodeURIComponent(activeJob));$('task').textContent=[...(job.events||[]),job.event].join(' · ');
@@ -183,11 +193,22 @@ function resumeChat(){
 document.addEventListener('visibilitychange',resumeChat);
 window.addEventListener('pageshow',resumeChat);
 window.addEventListener('online',resumeChat);
-$('prompt').addEventListener('input',()=>{retryOf=null;invalidateQuote();});
+$('prompt').addEventListener('input',()=>{retryOf=null;saveTextDraft();invalidateQuote();});
 function messageData(){if(readerTextBusy)throw Error('原文正在加载，请稍等再发问。');return {text:$('prompt').value.trim()||(pendingImages.length?'请看看我发来的图片。':pendingDocs.length?'请看看我发来的文件。':''),refs:[...selected.keys()],retry_of:retryOf,attachments:pendingImages.map(p=>p.id),documents:pendingDocs.map(p=>({id:p.id,version:p.version})),reading:pendingReading?{...pendingReading}:null};}
-$('restore').onclick=()=>{if(!lastFailed||activeJob)return;selected=new Map(lastFailed.refs.map(p=>[p.id,p]));renderSelected();$('prompt').value=lastFailed.text;pendingReading=lastFailed.reading||null;readerChip();pendingDocs=[...(lastFailed.documents||[])];renderPendingDocs();pendingImages=[...(lastFailed.attachments||[])];renderPendingImages();retryOf=lastFailed.id;invalidateQuote();notify('消息和引用已恢复，尚未发送。可以直接重试，不会重复保存这条用户消息。');};
-$('preview').onclick=async()=>{try{if(activeJob)throw Error('请等待当前任务完成。');const q=await api('quote',messageData());$('quote').textContent=`${q.model} · ${q.image_count||0} 张图（含近期图片） · 固定关系与表达依据 + ${q.refs} 段原文（${q.memory_chars} 字；每批检索参考 ${q.memory_char_budget} 字）+ ${q.history_turns} 条近期聊天 · 首次请求预留 ${money(q.ceiling_rmb)}。如需补查，最多 ${q.tool_rounds} 轮工具交互，并预留最多 ${q.final_response_requests} 次收尾请求；合计最多 ${q.max_model_requests} 次模型请求，每次记录用量；金额拦截按设置执行。`;if(q.subscription)$('quote').textContent=`${q.model} · 共用 ${q.refs} 段记忆及近期对话。使用 Codex 订阅，不估算为美元 API 账单；同样受订阅限额约束。`; if(q.recall_cap)$('quote').textContent+=` 本轮检索原文累计上限 ${q.recall_cap.memory_chars.toLocaleString()} 字符 / ${q.recall_cap.memory_items} 段，最多 ${q.recall_cap.memory_searches} 次不同记忆补查；达到后正常收尾。`; $('quote').textContent+=q.web_search_ready?(' 如需联网：每次另预留 '+money(q.web_request_rmb)+'，最多两次；阅读结果后的模型生成仍计费。'):' 当前未启用联网。';$('recallrefs').replaceChildren(...q.memories.map((p,i)=>button(`记忆${i+1} · ${p.speaker||'待核对'}`,()=>showContext(p.id))));$('recallpreview').hidden=!q.memories.length;if(q.document_count)$('quote').textContent+=' 本轮附带 '+q.document_count+' 个文档；长文先读开头，可通过工具继续读取。';quoteReady=true;$('send').disabled=false;}catch(e){notify(e.message);}};
-$('send').onclick=async()=>{try{if(activeJob||imageUploadBusy||documentBusy||!hasDraft())return;if(pendingImages.length&&!state.brains?.[state.config.brain]?.vision)throw Error('发图片请先切回 Gemini。');await begin('chat',messageData());$('prompt').value='';selected.clear();pendingImages=[];pendingDocs=[];renderPendingDocs();renderPendingImages();renderSelected();retryOf=null;}catch(e){notify(e.message);}};
+$('restore').onclick=()=>{if(!lastFailed||activeJob)return;selected=new Map(lastFailed.refs.map(p=>[p.id,p]));renderSelected();$('prompt').value=lastFailed.text;saveTextDraft();pendingReading=lastFailed.reading||null;readerChip();pendingDocs=[...(lastFailed.documents||[])];renderPendingDocs();pendingImages=[...(lastFailed.attachments||[])];renderPendingImages();retryOf=lastFailed.id;invalidateQuote();notify('消息和引用已恢复，尚未发送。可以直接重试，不会重复保存这条用户消息。');};
+$('preview').onclick=async()=>{try{if(activeJob)throw Error('请等待当前任务完成。');const q=await api('quote',messageData());$('quote').textContent=`${q.model} · ${q.image_count||0} 张图（含近期图片） · 固定关系与表达依据 + ${q.refs} 段原文（${q.memory_chars} 字；每批检索参考 ${q.memory_char_budget} 字）+ ${q.history_turns} 条近期聊天 · 首次请求预留 ${money(q.ceiling_rmb)}。如需补查，最多 ${q.tool_rounds} 轮工具交互，并预留最多 ${q.final_response_requests} 次收尾请求；合计最多 ${q.max_model_requests} 次模型请求，每次记录用量；金额拦截按设置执行。`;if(q.subscription)$('quote').textContent=`${q.model} · 共用 ${q.refs} 段记忆及近期对话。使用 Codex 订阅，不估算为美元 API 账单；同样受订阅限额约束。`; if(q.recall_cap)$('quote').textContent+=` 本轮检索原文累计上限 ${q.recall_cap.memory_chars.toLocaleString()} 字符 / ${q.recall_cap.memory_items} 段，最多 ${q.recall_cap.memory_searches} 次不同记忆补查；达到后正常收尾。`; $('quote').textContent+=q.web_search_ready?(' 如需联网：每次另预留 '+money(q.web_request_rmb)+'，最多两次；阅读结果后的模型生成仍计费。'):' 当前未启用联网。';$('recallrefs').replaceChildren(...q.memories.map((p,i)=>button(`记忆${i+1} · ${p.speaker||'待核对'}`,()=>showContext(p.id))));$('recallpreview').hidden=!q.memories.length;if(q.document_count)$('quote').textContent+=' 本轮附带 '+q.document_count+' 个文档；长文先读开头，可通过工具继续读取。';quoteReady=true;$('send').disabled=!hasDraft()||!!activeJob||submittingJob||imageUploadBusy||documentBusy||readerTextBusy;}catch(e){notify(e.message);}};
+$('send').onclick=async()=>{try{
+  if(activeJob||submittingJob||imageUploadBusy||documentBusy||!hasDraft())return;
+  if(pendingImages.length&&!state.brains?.[state.config.brain]?.vision)throw Error('发图片请先切回 Gemini。');
+  const draft=$('prompt').value,data=messageData();
+  await begin('chat',data);
+  // Do not erase text or references added while the submission was in flight.
+  if($('prompt').value===draft)$('prompt').value='';saveTextDraft();
+  data.refs.forEach(id=>selected.delete(id));
+  pendingImages=pendingImages.filter(p=>!data.attachments.includes(p.id));
+  pendingDocs=pendingDocs.filter(p=>!data.documents.some(d=>d.id===p.id&&d.version===p.version));
+  renderPendingDocs();renderPendingImages();renderSelected();retryOf=null;
+}catch(e){notify(e.message);}};
 $('checkconnection').onclick=async()=>{const button=$('checkconnection');button.disabled=true;$('connectionresult').textContent='正在读取 Google 模型信息…';try{const result=await api('connection/check',{});$('connectionresult').textContent=result.message;notify('Google 模型信息读取成功；没有测试生成回复，也没有发送记忆。');}catch(e){$('connectionresult').textContent=e.message;notify(e.message);}finally{button.disabled=false;await refresh().catch(()=>{});}};
 $('embed').onclick=async()=>{try{const data=await api('sample');if(!confirm(`只将 ${data.items.length} 段试验原文发给 Google 建立语义索引。尚未缓存的部分最多预留 ${money(data.ceiling_rmb)}。继续吗？`))return;await begin('embed',{});}catch(e){notify(e.message);}};
 $('semantic').onclick=async()=>{try{const query=$('query').value.trim();if(!query)throw Error('请先输入想检索的意思。');if(!confirm('语义试搜需要将检索问题发送给 Google，按试用额度付费；仅搜索已经建立的样本索引。来源和珍视筛选仅用于免费原文检索。继续吗？'))return;await begin('semantic',{query});}catch(e){notify(e.message);}};
@@ -245,6 +266,7 @@ function initShell(){
  window.visualViewport?.addEventListener('resize',viewport);window.visualViewport?.addEventListener('scroll',viewport);window.addEventListener('resize',viewport);viewport();resize();
 }
 initShell();
+restoreTextDraft();
 
 function initComposerSize(composer){
  const input=$('prompt'),tools=el('div',undefined,'composer-size'),handle=el('span','━','composer-grip');handle.id='composergrip';handle.tabIndex=0;handle.setAttribute('role','separator');handle.setAttribute('aria-orientation','horizontal');handle.setAttribute('aria-label','上下拖动调整输入框大小；方向键也可调整');handle.setAttribute('aria-controls','prompt');

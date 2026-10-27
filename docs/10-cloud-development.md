@@ -50,9 +50,10 @@ python tools/check_semantic.py
 ```text
 node tools/check_browser.cjs
 node tools/check_platform_browser.cjs
+node tools/check_platform_recovery.cjs
 ```
 
-前者保留旧导入工作台回归，后者检查完整平台；均创建临时合成 profile，禁止外部页面请求，不申请摄像头、不调用真实模型。截图只写 .local。完整测试服务器中的聊天清楚标为合成演示，不进入普通启动实例。
+第一项保留旧导入工作台回归，第二项检查完整平台，第三项检查草稿、提交、阅读失败恢复、共读附件与窄屏笔记；均创建临时合成 profile，禁止外部页面请求，不申请摄像头、不调用真实模型。截图只写 .local。完整测试服务器中的聊天清楚标为合成演示，不进入普通启动实例。
 
 旧标准库切片仍可单独启动：
 ```text

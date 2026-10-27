@@ -8,6 +8,7 @@ import server as api
 import platform_import
 from test_platform import epub
 import base64
+import json
 args,_=argparse.ArgumentParser().parse_known_args()
 profile=Path(sys.argv[sys.argv.index('--data-dir')+1])
 api.configure_profile(profile);api.init_state()
@@ -25,4 +26,7 @@ api.reader.upload(api,{'name':'Synthetic paper.pdf','data':base64.b64encode(out.
 with api.state_db() as db:
     for role,text in [('user','[合成演示] 请解释图书馆里的观察。'),('assistant','[合成演示，非模型生成] **原件与解释分开保存**，才能核对证据。')]:
         db.execute('INSERT INTO chat(role,text,time,refs,job_id) VALUES(?,?,?,?,?)',(role,text,api.now(),'[]','synthetic-ui'))
+doc=api.library.edit(api,{'name':'Synthetic attachment.md','text':'A fictional reading note.'})
+with api.state_db() as db:
+    db.execute('UPDATE chat SET documents=? WHERE id=1',(json.dumps([{'id':doc['id'],'version':doc['version']}]),))
 api.main()

@@ -75,7 +75,7 @@ def refresh():
         raise ValueError("Stage the curated files before refreshing the manifest")
     document = {
         "date": dt.date.today().isoformat(),
-        "scope": "P1-A offline workbench, reference source and synthetic fixtures; no model integrations",
+        "scope": "Offline-verifiable interaction platform and synthetic fixtures; no runtime data, credentials or model weights",
         "hash_scope": "exact staged Git blob bytes; manifest itself excluded",
         "files": sorted(entries, key=lambda e: e["path"]),
     }
