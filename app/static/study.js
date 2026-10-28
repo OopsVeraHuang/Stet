@@ -97,7 +97,7 @@
     for(const note of [...notes.values()].sort((a,b)=>b.id-a.id)){
       const card=el('article',undefined,'study-note');card.id='study-note-'+note.id;card.dataset.noteId=note.id;
       const top=el('div',undefined,'study-note-top');top.append(el('small',`${note.source_role==='user'?'用户':'Agent'} · ${time(note.source_time)}`));
-      const more=button('···',e=>noteMenu(note,more.getBoundingClientRect().left,more.getBoundingClientRect().bottom),'study-more');more.setAttribute('aria-label','笔记操作');top.append(more);
+      const more=button('…',e=>noteMenu(note,more.getBoundingClientRect().left,more.getBoundingClientRect().bottom),'study-more');more.setAttribute('aria-label','笔记操作');top.append(more);
       card.append(top,noteText(note));
       for(const annotation of note.annotations.filter(a=>a.kind==='comment')){
         const c=el('div',undefined,'study-comment');

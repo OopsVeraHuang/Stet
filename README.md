@@ -30,6 +30,10 @@ Windows 完成安装后双击 `启动原型.cmd`。Linux/macOS 使用 `.venv/bin
 
 可选本地中英俄语义检索需要 requirements-semantic.txt 和独立权重，见 [开发说明](docs/10-cloud-development.md)。未安装时仍可词句检索，不会自动改用付费 embedding。
 
+## 最近的体验修复
+
+聊天文字草稿支持刷新和导入页往返恢复；提交等待期间防止重复点击；阅读文字失败可重试；共读附件可返回正常聊天。保留灰紫聊天与米色学习界面。具体操作、保存边界及 Linux 验证见 [完整体验验收](docs/13-experience-check.md)。
+
 ## 验证
 
 ```text

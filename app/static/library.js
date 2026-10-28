@@ -5,7 +5,7 @@ function renderPendingDocs(){
   for(const p of pendingDocs)$('pendingdocs').append(button(`${p.name} · v${p.version} ×`,()=>{pendingDocs=pendingDocs.filter(x=>x.id!==p.id);retryOf=null;renderPendingDocs();}));
   invalidateQuote();
 }
-function chooseDoc(p){if(activeJob||documentBusy)throw Error('请等本轮完成。');if(pendingDocs.length>=3&&!pendingDocs.some(x=>x.id===p.id))throw Error('一轮最多三个文档。');pendingDocs=pendingDocs.filter(x=>x.id!==p.id);pendingDocs.push(p);retryOf=null;renderPendingDocs();tab('chat');}
+function chooseDoc(p){if(activeJob||documentBusy)throw Error('请等本轮完成。');if(pendingDocs.length>=3&&!pendingDocs.some(x=>x.id===p.id))throw Error('一轮最多三个文档。');pendingDocs=pendingDocs.filter(x=>x.id!==p.id);pendingDocs.push(p);retryOf=null;renderPendingDocs();if($('chat').classList.contains('reader-chat'))undockChat();tab('chat');}
 function appendDocuments(node,items){if(!items?.length)return;const group=el('div',undefined,'document-chips');for(const p of items)group.append(button(`${p.name||'文档'} · v${p.version}`,()=>openDocument(p.id,p.version)));node.append(group);}
 async function libraryList(){const rows=await api('library?q='+encodeURIComponent($('libraryquery').value));$('librarylist').replaceChildren();for(const p of rows){const item=el('article',undefined,'card');item.append(el('h3',p.name),el('p',`v${p.version} · ${p.chars} 字 · ${p.author} · ${time(p.created)}`,'footnote'),el('p',p.note,'footnote'),button('打开',()=>openDocument(p.id,p.version)),button('附到聊天',()=>chooseDoc(p)));$('librarylist').append(item);}if(!rows.length)$('librarylist').append(el('p','还没有匹配的文件。'));}
 async function uploadDocuments(files,attach=true){

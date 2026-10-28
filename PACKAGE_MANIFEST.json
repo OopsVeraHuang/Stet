@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-25",
-  "scope": "P1-A offline workbench, reference source and synthetic fixtures; no model integrations",
+  "date": "2026-10-28",
+  "scope": "Offline-verifiable interaction platform and synthetic fixtures; no runtime data, credentials or model weights",
   "hash_scope": "exact staged Git blob bytes; manifest itself excluded",
   "files": [
     {
@@ -25,8 +25,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3398,
-      "sha256": "322f84f17c1ae50acebc8de49311859ebda654b1d1c82a51faf7633897e076be"
+      "bytes": 3729,
+      "sha256": "1c97b15c3b6be6476093079d1838e139a43d9a9bbf782f7a83fd63ba36178e5b"
     },
     {
       "path": "THIRD_PARTY.md",
@@ -130,8 +130,8 @@
     },
     {
       "path": "app/static/app.js",
-      "bytes": 44472,
-      "sha256": "50172d3b4c5ca0ca4de26361a66da6f6a4af2ae26c9ac5237df7064490b25e7e"
+      "bytes": 45738,
+      "sha256": "90a27aacc93beaff9bf264720ad83ead7c1d6b5cd70bf826d37cf0a41cee1b87"
     },
     {
       "path": "app/static/booktools.js",
@@ -150,13 +150,13 @@
     },
     {
       "path": "app/static/index.html",
-      "bytes": 20245,
-      "sha256": "d9875414426a1f1acada084c18aad933987f5e35a7bfc15d3f9619e5ac466916"
+      "bytes": 20316,
+      "sha256": "7cb812bad3b82891061e5c12f00695ec9946b67a6b629182767729495ff0ec4e"
     },
     {
       "path": "app/static/library.js",
-      "bytes": 5847,
-      "sha256": "b67632781fc5ade9679d9a567d742e5d76ee6f161558946eab45d1e1d847b401"
+      "bytes": 5907,
+      "sha256": "8f6134221fa3df7b1a14c9bfdaf08cdd7382b360fd16d8b8f8cf9e240ca81028"
     },
     {
       "path": "app/static/login.html",
@@ -185,8 +185,8 @@
     },
     {
       "path": "app/static/reader.js",
-      "bytes": 14433,
-      "sha256": "0d0a705984532b702e557fea56827e73ea6e99f8cfa629143984a563622d20f1"
+      "bytes": 15315,
+      "sha256": "bc0e451001d455446598b6fe331d4bbfc1ce6ba4bc0328e17fa4055268577241"
     },
     {
       "path": "app/static/studio.js",
@@ -195,13 +195,13 @@
     },
     {
       "path": "app/static/study.css",
-      "bytes": 8266,
-      "sha256": "8071fd12f87f55e8003129dabf15522e2e67e70c3cb4c1bac02dd1e1332fdba5"
+      "bytes": 8311,
+      "sha256": "dc812508cb58485e86f38e00c43c0d9e60c137d409202fa683397e70a79687fc"
     },
     {
       "path": "app/static/study.js",
-      "bytes": 15446,
-      "sha256": "d5ffd0ac9b306f52bbdc6abefc030aac1454ea13dc82b75e1b97a1679b1faaaa"
+      "bytes": 15443,
+      "sha256": "6f078ee6beeeca4b91e1f46a149213b2dc704197c4f41e8361f0d60e9fd6680a"
     },
     {
       "path": "app/static/style.css",
@@ -1525,8 +1525,8 @@
     },
     {
       "path": "docs/10-cloud-development.md",
-      "bytes": 2852,
-      "sha256": "43a03ec2e07ebe81c892ba10904730d8b1c7966e42c067896d3df59b31aac495"
+      "bytes": 2981,
+      "sha256": "e654cb4ec5f404d053f351996d39ce067e2b4ff96a0320e07c7b33821678638a"
     },
     {
       "path": "docs/11-p1a-workbench.md",
@@ -1539,9 +1539,24 @@
       "sha256": "196a7b5c31f1153b8d383b09e64e17b276de700ea1b6b0f92625f0e3d0d2c99a"
     },
     {
+      "path": "docs/13-experience-check.md",
+      "bytes": 5737,
+      "sha256": "c4bf2035f51949a10782b62484b9c637c67db3267baba1a3928ee1c7842f489d"
+    },
+    {
       "path": "docs/status.md",
-      "bytes": 8028,
-      "sha256": "74c250b3b29c1f8f4788d481eef4e022cf35e1fd8949a13d6407cb006dd9c534"
+      "bytes": 11010,
+      "sha256": "10bf74c18f7958c43344391735207eaa68ce6c7ccc0ac8a7477fd9c2c5794480"
+    },
+    {
+      "path": "downloads/Continuity-platform-experience-2026-10-27.zip",
+      "bytes": 3939628,
+      "sha256": "471badef0aa5c121b0bde07d837fde2f40747f1ccd754dda969d22ea4dcb6e82"
+    },
+    {
+      "path": "downloads/README.md",
+      "bytes": 1378,
+      "sha256": "cb5f327496d8ecbf4de369f2a25cc57036827f5ceaa9baa20eaf278e9f647cb0"
     },
     {
       "path": "examples/cases.json",
@@ -1625,8 +1640,8 @@
     },
     {
       "path": "tools/browser_fixture.py",
-      "bytes": 1711,
-      "sha256": "7e5508d5eaa1149bcc8f6e6594b6ed6e63fa53325360751bf36a6b4698096c67"
+      "bytes": 1962,
+      "sha256": "8887c3156bbdaee4e271e37156e41b98af015faa4dc06d261cb6ce8054e89be8"
     },
     {
       "path": "tools/check_browser.cjs",
@@ -1637,6 +1652,11 @@
       "path": "tools/check_platform_browser.cjs",
       "bytes": 6225,
       "sha256": "6421dd193d7e401c343fea6918d2834a0a2c824a34269aac1a0fcc6f7c5b6b31"
+    },
+    {
+      "path": "tools/check_platform_recovery.cjs",
+      "bytes": 11310,
+      "sha256": "535ae4e2acf915ffec72d5c837a00bb7e2615246016d968a630bd78182d4aa8f"
     },
     {
       "path": "tools/check_semantic.py",
@@ -1650,8 +1670,8 @@
     },
     {
       "path": "tools/package.py",
-      "bytes": 7086,
-      "sha256": "153b05fb879159b85966c3896477dd944b2821564ad4c6b86d32d178abe2a4da"
+      "bytes": 7109,
+      "sha256": "4e9e13946bbdcab0c3df9bcb854577cf541324e983ec0ef5166a9334bab91f20"
     },
     {
       "path": "启动原型.cmd",
