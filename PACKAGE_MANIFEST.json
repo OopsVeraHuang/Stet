@@ -25,13 +25,13 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 4037,
-      "sha256": "e636c3ec71976a3d66f0161d3e368005ce2f0331b334954e814956d6763d4c60"
+      "bytes": 10900,
+      "sha256": "fd3d12758fb13da7d384280afe58f2abac5cf5e3227b9686f65a6fdb22b0c6d0"
     },
     {
       "path": "README.md",
-      "bytes": 5003,
-      "sha256": "cfa18a216315100107417b4c4b01393dc02403414014d30c5e7a1077602774e5"
+      "bytes": 10063,
+      "sha256": "da03916f02c10316758a4dde2846339058d1a199a9dba3472ab2335792435aa6"
     },
     {
       "path": "THIRD_PARTY.md",
@@ -1600,8 +1600,8 @@
     },
     {
       "path": "docs/status.md",
-      "bytes": 14522,
-      "sha256": "6146c8df67931d3d14951e8a291f7732a5179ce36c4407a6877ffbcce809e98f"
+      "bytes": 14984,
+      "sha256": "578d93038ca2486c109fca127a58bb9bbf151a89c93c960d8ccef7bec6e5db21"
     },
     {
       "path": "downloads/Continuity-platform-experience-2026-10-27.zip",
