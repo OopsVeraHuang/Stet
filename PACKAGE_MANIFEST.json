@@ -15,8 +15,8 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 2797,
-      "sha256": "1902a82e0145e823632206a980c73d999029aa5d1d0972e042b0ad8cdc28f043"
+      "bytes": 2862,
+      "sha256": "66c3304cee9ea61f9906195ba89d040724200e8853bc72762d9d6e8e44df905f"
     },
     {
       "path": "NEXT_AGENT.md",
@@ -25,13 +25,13 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 3705,
-      "sha256": "81594d4ba7c43660e4e23f52f2248f38dc8fcb08e050237c4bee2d9319398f71"
+      "bytes": 4039,
+      "sha256": "fe35cdb036454a2a10f1aa034013ddd9506aad072f87d01e0ebd071948e08088"
     },
     {
       "path": "README.md",
-      "bytes": 4684,
-      "sha256": "3d78ae831777aee8ab7e2be5b586688b7b3c0eaa9bb7c6a55fec12432014987e"
+      "bytes": 5005,
+      "sha256": "a37c2caa29fc2e0818d3789655946c453b5b6677d77203bd656dffd2f5f7b9bf"
     },
     {
       "path": "THIRD_PARTY.md",
@@ -1595,13 +1595,13 @@
     },
     {
       "path": "docs/17-stet-preview.md",
-      "bytes": 4940,
-      "sha256": "a0265c42ef03c0c8ad13b85be85c941bffde93312e4ec1a7a496aafe34834c3e"
+      "bytes": 5122,
+      "sha256": "4c696cb4edf3362dc27299f1668d4aa25e709a134528fdec827b369f8e66124f"
     },
     {
       "path": "docs/status.md",
-      "bytes": 12672,
-      "sha256": "aaff042b5a4a7e175c7e5275f00f49ae1b4f549a029710f1e0d11981b33cc60f"
+      "bytes": 13646,
+      "sha256": "06913c5bcf911d8b029ad8441b2de330f4b6909b167aff8f336ae4d543b584ee"
     },
     {
       "path": "downloads/Continuity-platform-experience-2026-10-27.zip",
@@ -1610,8 +1610,8 @@
     },
     {
       "path": "downloads/README.md",
-      "bytes": 3076,
-      "sha256": "2338e34309f55ba9ffcc2442faff7c637daaa287071ee923948d131ce9d72a63"
+      "bytes": 3409,
+      "sha256": "75f963b59052739e267f5abe2e33819b50a6b7b0db0e7615e8bda574eb7e6a71"
     },
     {
       "path": "downloads/Stet-Preview-2026-11-17.zip",

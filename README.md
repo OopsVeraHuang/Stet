@@ -2,13 +2,17 @@
 
 **User-governed memory for continuity across AI models.**
 
-[English](README.en.md) · [中文使用指南](docs/14-getting-started.md) · [本版验收](docs/17-stet-preview.md) · [记忆与人格工程设计](docs/16-memory-persona-design.md)
+**语言 / Language：简体中文 | [English](README.en.md)**
+
+[中文使用指南](docs/14-getting-started.md) · [本版验收](docs/17-stet-preview.md) · [记忆与人格工程设计](docs/16-memory-persona-design.md)
 
 **[下载 Stet 双语预览包](downloads/README.md)**（含校验值与安装步骤）。
 
 2026-11-17：原型更名 **Stet（let it stand）**。可在侧栏切换中文/English；保留原来的 `continuity` 启动命令和数据路径，已有数据不搬动。视频标为 Beta，工作室暂时隐藏。设置按模型连接、回答与记忆、伙伴偏好、联网工具、费用分组。
 
 支持长期协作、学习与陪伴的个人 Agent 研究平台，关系由用户定义。工作名未检查重名。
+
+项目地址：[2811755043-bot/Stet](https://github.com/2811755043-bot/Stet)。作品集可描述为：**Stet — 用户可治理的 Agent 记忆与跨模型交互连续性研究原型**。目前为私有预览；人格连续性是研究目标，不是已获实验证明的结果。
 
 **默认打开聊天，继承先导应用的灰紫 UI。** 聊天、模型选择、带出处记忆、资料库、PDF/EPUB 共读、米色学习笔记与视频模块已迁入独立原型；原 JSON/MD 工作台保留为导入入口。功能迁入不代表所有供应商或真实手机功能已验收。[功能与验证边界](docs/12-platform-migration.md)
 

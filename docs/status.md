@@ -72,3 +72,9 @@ Windows / Python 3.12.14 的 41 项离线测试通过，四套无头 Edge 浏览
 新增 `16-memory-persona-design.md`：Memory-R2 的策略训练与向量编码器分开；默认规则/可选共享模型/私人适配器三条路径；Alicia 分层启发与六种实用策略；用户治理、审计、成组预算与成本/质量评测。仅工程设计，没有训练或 HF 发布。原 14 个治理案例仍为规格，不计入通过数。已保留教程致谢，未附 PDF 全文。
 
 仓库元数据复查仍为 private。main 原为旧 P0 文档提交，已确认是当前完整平台提交的祖先；本轮计划普通快进同步 main，不强制覆盖。确切远端提交、清单和新 ZIP 的最终核验在 `downloads/README.md` 补充。
+
+### Stet 交付与仓库改名
+
+实现提交 `a0413edc8c8898fc0f1c05b0cad68241d7eb065f`；下载包提交 `04c082e` 已上传 main 与 codex/stet-bilingual-preview，保留之前全部历史。新 ZIP 包含 350 个成员，SHA-256 为 `7f061dd2451f982d8305fba5d64d7cec5c78035dffb398758425a29935e62582`；全新解压后 349 个清单文件校验及 41 项测试再次通过。已有 416 个历史 blob、工作文件及旧 ZIP 成员的常见凭据/私人端点模式扫描无匹配；这是有限扫描，不是绝对隐私保证。
+
+所有者随后明确授权仓库改名。GitHub 官方 API 已将同一仓库（ID 1431762124）从 My-first-repository- 改为 [Stet](https://github.com/2811755043-bot/Stet)，维持 private 和 main；本地 origin 同步更新。README.md / README.en.md 顶部互链，中英表述按功能对应，新增可用于作品集的研究原型描述。此次收尾只更新链接与交付记录，不改动应用代码或已验证 ZIP。

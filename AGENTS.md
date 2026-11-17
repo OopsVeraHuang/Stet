@@ -13,7 +13,7 @@
 - No destructive memory migration or blanket disabling of original integrity checks. Changes must be reviewable, tested and reversible.
 - No inherited personal endpoints, accounts, preferences or secret values in examples/defaults. Runtime user data belongs outside Git.
 - The shared repository is not shared SQLite state. Every install/profile must have separate state and credentials; authentication is required before remote deployment.
-- Update docs/status.md after each milestone. The owner authorized synchronizing this sanitized P0 package to the existing private GitHub repository. Keep its visibility and name unchanged; this does not authorize public release, production deployment, subscriptions or a license choice.
+- Update docs/status.md after each milestone. The owner authorized synchronizing the sanitized prototype to the existing private GitHub repository, renamed Stet with explicit approval on 2026-11-17. Keep its private visibility and current name unchanged; this does not authorize public release, production deployment, subscriptions or a license choice.
 - Read docs/10-cloud-development.md for portable offline checks. Preserve Git history, never force-push over a changed remote head, and inspect all reachable history before a first upload.
 - Treat examples/governance-cases.json as planned acceptance specifications, not executable or passing feature tests. New time/correction contracts remain pending P1-B.
 - Keep package hashes in sync with staged Git bytes using tools/package.py; see docs/09-verification.md. Do not include dist/ or .local/ in commits.
