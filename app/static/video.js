@@ -2,7 +2,7 @@
 (() => {
   const panel=el('section',undefined,'panel');panel.id='video';
   // Static application markup only. Captions and errors always use textContent.
-  panel.innerHTML=`<div class="heading"><div><span class="eyebrow">HERE, WITH YOU</span><h2>看见你，听见你。</h2><p>音视频试通 · 第一步</p></div></div>
+  panel.innerHTML=`<div class="heading"><div><span class="eyebrow">HERE, WITH YOU</span><h2>看见你，听见你。</h2><p>视频通话 · Beta</p></div></div>
   <p class="video-intro">一起看、听、说。按住按钮说话，松开后 Agent 回答；再次按住可打断。这一版还不会主动监督学习。</p>
   <div class="video-grid"><div class="video-camera"><video id="livecamera" muted playsinline autoplay></video><p id="livetracks">摄像头和麦克风均未开启</p></div>
   <div class="video-controls"><label>这次一起做什么？<input id="livetask" maxlength="300" placeholder="例如：一起看看我的书桌"></label>
@@ -20,7 +20,7 @@
   <p>Google 的付费 API 内容不用于改进产品，但会为滥用监测有限期保留。这里没有承诺第三方零留存。<a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noreferrer">查看 Google 数据条款</a></p>
   <p>试通额度是保守预留，不是固定收费；用量回执完整后校正，不完整时保留待核对。美元单价按设置汇率换成人民币，金额拦截按「连接与预算」中的开关执行。</p></details>`;
   document.querySelector('main').append(panel);
-  const nav=button('◉  视频',()=>tab('video'));nav.dataset.tab='video';document.querySelector('nav').append(nav);
+  const nav=button('◉  视频 · Beta',()=>tab('video'));nav.dataset.tab='video';document.querySelector('nav').append(nav);
   let stream=null,ctx=null,mic=null,mute=null,ws=null,ready=false,holding=false,discard=false,ending=false,starting=false;
   let captureTimer=null,countTimer=null,wake=null,startedAt=0,generation='',nextTime=0,ended=false,ackSent=false;
   let playbackGain=null,bufferTarget=.18,callSeconds=300,reservePerMinute=0;

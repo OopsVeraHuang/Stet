@@ -131,7 +131,7 @@ async function renderCorrections(){
     }));card.append(actions);$('correctionlist').append(card);
   }
 }
-function fillSettings() {for(const key of Object.keys(state.config)) if($(key)) {if(['paid_enabled','search_enabled','budget_enforced'].includes(key))$(key).checked=state.config[key];else $(key).value=state.config[key]??'';}}
+function fillSettings() {for(const key of Object.keys(state.config)) if($(key)) {if(['paid_enabled','search_enabled','budget_enforced','auto_corrections'].includes(key))$(key).checked=state.config[key];else $(key).value=state.config[key]??'';}}
 async function refresh() {
   state=await api('status');const engine=state.brains?.[state.config.brain]?.provider;const generation=state.connection?.generation;
   const googleState=generation?.status==='running'?'Google 正在响应':generation&&generation.status!=='success'?'最近一次 Google 生成请求未完成':generation?.status==='success'?'最近一次 Google 请求已返回':state.connection?.ok?'Google 模型信息可读取':'Gemini';
@@ -216,26 +216,26 @@ $('keyform').onsubmit=async e=>{e.preventDefault();try{await api('key',{key:$('a
 $('clearkey').onclick=async()=>{try{await api('key/clear',{});await refresh();notify('本机保存的 Gemini 密钥已移除。已发出的请求可能仍会完成。');}catch(e){notify(e.message);}};
 $('searchkeyform').onsubmit=async e=>{e.preventDefault();try{await api('search/key',{key:$('searchkey').value,persist:$('searchpersist').checked});$('searchkey').value='';await refresh();notify('搜索密钥已保存，尚未发送请求。开启联网后点击「保存设置」。');}catch(e){notify(e.message);}};
 $('clearsearchkey').onclick=async()=>{try{await api('search/key/clear',{});await refresh();invalidateQuote();notify('搜索密钥已移除，后续不会发起新的搜索。');}catch(e){notify(e.message);}};
-$('budgetform').onsubmit=async e=>{e.preventDefault();try{const data={};for(const key of Object.keys(state.config))if($(key))data[key]=['thinking_level','brain'].includes(key)?$(key).value:['paid_enabled','search_enabled','budget_enforced'].includes(key)?$(key).checked:$(key).value===''?null:Number($(key).value);await api('config',data);invalidateQuote();await refresh();notify('预算设置已保存。');}catch(e){notify(e.message);}};
+$('budgetform').onsubmit=async e=>{e.preventDefault();try{const data={};for(const key of Object.keys(state.config))if($(key))data[key]=['thinking_level','brain'].includes(key)?$(key).value:['paid_enabled','search_enabled','budget_enforced','auto_corrections'].includes(key)?$(key).checked:$(key).value===''?null:Number($(key).value);await api('config',data);invalidateQuote();await refresh();notify('预算设置已保存。');}catch(e){notify(e.message);}};
 $('export').onclick=async()=>{try{const data=await api('export');const blob=new Blob([data.markdown],{type:'text/markdown;charset=utf-8'});const url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download=data.filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){notify(e.message);}};
 (async()=>{try{await refresh();fillSettings();activeJob=state.jobs.find(j=>j.status==='running')?.id||sessionStorage.getItem('continuity-job');await renderHistory();if(activeJob){$('orb').classList.add('busy');poll();}Promise.allSettled([renderCorrections(),(async()=>{const src=await api('sources');src.forEach(s=>{const option=el('option',s.filename+' · '+s.category);option.value=s.id;$('source').append(option);});await literal();})()]);}catch(e){$('connection').textContent='服务暂未连接';notify(e.message);}})();
 
 $('relationship').addEventListener('toggle',async()=>{if(!$('relationship').open||$('profileguide').textContent)return;try{const p=await api('relationship');$('profilecoverage').textContent='版本 '+p.version+' · '+p.coverage;$('profileguide').textContent=p.guide;$('profileexamples').replaceChildren(...p.examples.map(e=>button(e.source+' · 第 '+e.paragraph+' 段',()=>showContext(e.id))));}catch(e){notify(e.message);}});
 
 
-initMedia();initLibrary();initReader();initStudio();
+initMedia();initLibrary();initReader();
 
 // Compact application shell; preserve existing controls and their event handlers.
 function initShell(){
  document.body.classList.add('app-shell');document.body.dataset.page='chat';
  const header=document.querySelector('header'),nav=document.querySelector('nav'),main=document.querySelector('main');
  nav.id='appnav';const side=el('aside',undefined,'app-sidebar');side.id='appsidebar';side.setAttribute('aria-label','功能侧栏');
- const sideHead=el('div',undefined,'sidebar-heading');sideHead.append(el('span','Continuity','sidebar-wordmark'));
+ const sideHead=el('div',undefined,'sidebar-heading');sideHead.append(el('span','Stet','sidebar-wordmark'));
  const toggle=button('☰',()=>{if(matchMedia('(max-width:760px)').matches)setSidebar(!document.body.classList.contains('sidebar-open'));else{document.body.classList.remove('sidebar-collapsed');toggle.setAttribute('aria-expanded','true');}},'shell-icon');toggle.id='menutoggle';toggle.setAttribute('aria-label','打开功能侧栏');toggle.setAttribute('aria-controls','appsidebar');toggle.setAttribute('aria-expanded','false');
  const close=button('×',()=>{if(matchMedia('(max-width:760px)').matches)setSidebar(false);else{document.body.classList.add('sidebar-collapsed');toggle.setAttribute('aria-expanded','false');toggle.focus();}},'shell-icon sidebar-close');close.setAttribute('aria-label','关闭功能侧栏');sideHead.append(close);side.append(sideHead,nav);
  const icons={chat:'◌',memory:'✧',reader:'▤',library:'▱',studio:'⌘',settings:'⚙'};
  for(const b of nav.querySelectorAll('button')){const icon=el('span',icons[b.dataset.tab]||'·','nav-icon');icon.setAttribute('aria-hidden','true');b.prepend(icon);}
- const sideNote=el('p','同一份记忆，继续生长。','sidebar-note');side.append(sideNote);
+ const sideNote=el('p','Let it stand.','sidebar-note');side.append(sideNote);
  const foot=el('div',undefined,'sidebar-footer');foot.append($('export'));
  for(const b of [...header.children])if(b.tagName==='BUTTON'){if(b.textContent==='退出登录')b.remove();else foot.append(b);}
  side.append(foot);document.body.insertBefore(side,header);
@@ -258,7 +258,7 @@ function initShell(){
  const jump=button('↓',()=>{$('messages').scrollTo({top:$('messages').scrollHeight,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});jump.hidden=true;},'jump-latest');jump.id='jumplatest';jump.hidden=true;jump.setAttribute('aria-label','回到最新消息');composer.before(jump);
  $('messages').addEventListener('scroll',()=>{jump.hidden=$('messages').scrollHeight-$('messages').scrollTop-$('messages').clientHeight<180;},{passive:true});
  function setSidebar(open){document.body.classList.toggle('sidebar-open',open);toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'关闭功能侧栏':'打开功能侧栏');backdrop.hidden=!open;side.inert=matchMedia('(max-width:760px)').matches&&!open;if(open&&matchMedia('(max-width:760px)').matches)close.focus();}
- document.addEventListener('continuity-tab',e=>{pageLabel.textContent={chat:'对话',memory:'记忆',reader:'一起读书',library:'资料库',settings:'连接与预算',studio:'工作室',video:'视频试通'}[e.detail]||'Agent';if(matchMedia('(max-width:760px)').matches){setSidebar(false);toggle.focus();}});
+ document.addEventListener('continuity-tab',e=>{pageLabel.textContent={chat:'对话',memory:'记忆',reader:'一起读书',library:'资料库',settings:'连接与预算',studio:'工作室',video:'视频 · Beta'}[e.detail]||'Agent';if(matchMedia('(max-width:760px)').matches){setSidebar(false);toggle.focus();}});
  document.addEventListener('keydown',e=>{if(!document.body.classList.contains('sidebar-open')||!matchMedia('(max-width:760px)').matches)return;if(e.key==='Escape'){setSidebar(false);toggle.focus();}if(e.key==='Tab'){const focusable=[...side.querySelectorAll('button,a[href]')].filter(n=>n.getClientRects().length);const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
  const mq=matchMedia('(max-width:760px)');mq.addEventListener('change',()=>setSidebar(false));setSidebar(false);
  // Visual viewport follows the iPhone keyboard without hiding the input bar.

@@ -42,12 +42,14 @@ async function previewBytes(bytes, filename, version) {
   $('preview-summary').replaceChildren(...[['总消息',result.summary.total],['可新增',result.summary.new],['重复',result.summary.duplicates],['失败',result.summary.failed],['含缺失提示',result.summary.warnings]].map(([label,n])=>element('span',`${label} ${n}`,'stat')));
   $('preview-hash').textContent = `原文件 SHA-256：${result.sha256} · ${result.bytes} 字节 · 分支：${result.summary.branches.join('、')}`;
   $('preview-guidance').textContent = result.already_imported ? '这份原文件已导入，不会再次保存。' : result.summary.failed ? '存在错误，整批不会写入；没有静默跳过。请修正源文件后重新预览。' : '原文件和所有消息将保存在本机。缺失字段保持未知；预览尚未写入。';
-  $('preview-rows').replaceChildren(...result.rows.map(r=>recordCard(r,true)));
+  $('preview-rows').replaceChildren(...result.rows.slice(0,200).map(r=>recordCard(r,true)));
   if (Object.keys(result.extensions).some(k => !['synthetic','warning','schema_version'].includes(k))) $('preview-rows').prepend(element('p','文件含扩展字段：将原样保留；用户治理与模型推断不会在 P1-A 自动执行。','warning'));
+  if(result.rows.length>200)$('preview-rows').append(element('p','预览只展示前 200 条；确认将导入全部通过校验的消息。','warning'));
+  if(result.extensions.native_import){const p=element('p',JSON.stringify(result.extensions.native_import,null,2),'warning');p.dataset.noI18n='';$('preview-rows').prepend(p);}
   notice('预览已完成。请检查原话、角色和时间，再确认导入。');
 }
 async function example(extension) { const version = invalidatePreview(); const response = await fetch('/api/examples/messages.'+extension); if (!response.ok) throw new Error('示例读取失败。'); await previewBytes(new Uint8Array(await response.arrayBuffer()), 'messages.'+extension, version); }
-function fillFilter(id, pairs) { const select = $(id), previous = select.value; select.replaceChildren(...pairs.map(([value,label])=>{const o=element('option',label);o.value=value;return o;})); if(pairs.some(p=>p[0]===previous)) select.value=previous; }
+function fillFilter(id, pairs) { const select = $(id), previous = select.value; select.replaceChildren(...pairs.map(([value,label])=>{const o=element('option',label);o.value=value;if(value&&value!=='*'&&label!=='未知分支')o.dataset.noI18n='';return o;})); if(pairs.some(p=>p[0]===previous)) select.value=previous; }
 function renderMemory() {
   const source=$('source-filter').value, branch=$('branch-filter').value;
   const visible=allMessages.filter(m=>(!source||m.record.source_id===source)&&(branch==='*'||JSON.stringify(m.record.branch_id??null)===branch));
@@ -84,7 +86,7 @@ async function openDetail(key) {
 }
 document.querySelectorAll('nav button').forEach(b=>act(b,async()=>{show(b.dataset.screen);if(b.dataset.screen==='memory')await refresh();}));
 act($('example-json'),()=>example('json'));act($('example-md'),()=>example('md'));
-$('file').addEventListener('change',async()=>{const version=invalidatePreview();try{const file=$('file').files[0];if(!file)return;if(file.size>2*1024*1024)throw new Error('文件超过 2 MiB，请拆分规范文件。');await previewBytes(new Uint8Array(await file.arrayBuffer()),file.name,version);}catch(e){notice(e.message,true);}});
+$('file').addEventListener('change',async()=>{const version=invalidatePreview();try{const file=$('file').files[0];if(!file)return;if(file.size>32*1024*1024)throw new Error('文件超过 32 MiB，请按会话拆分导出。');await previewBytes(new Uint8Array(await file.arrayBuffer()),file.name,version);}catch(e){notice(e.message,true);}});
 $('confirm-import').addEventListener('click',async()=>{if(!pending)return;const payload=pending;invalidatePreview();try{const r=await api('/api/import',payload);await refresh();show('memory');notice(r.already_imported?'已导入过，没有新增消息。':`已保存原文件，新增 ${r.added} 条记忆。点击「查看出处」核对原文。`);}catch(e){notice(e.message+' 请重新预览。',true);}});
 $('source-filter').addEventListener('change',renderMemory);$('branch-filter').addEventListener('change',renderMemory);
 $('search-form').addEventListener('submit',async event=>{event.preventDefault();try{const q=$('query').value;if(!q.trim())return;const r=await api('/api/messages?q='+encodeURIComponent(q));$('search-count').textContent=`找到 ${r.messages.length} 条字面匹配；没有生成模型回答。`;$('search-results').replaceChildren(...(r.messages.length?r.messages.map(m=>recordCard(m)):[element('div','没有找到连续匹配的原文。可试试原文中的短词；这不表示相关经历不存在。','empty')]));}catch(e){notice(e.message,true);}});

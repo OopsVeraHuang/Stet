@@ -22,3 +22,12 @@ Python 依赖由使用者另行安装，见 requirements 文件；保留各自�
 当前缺少可核实的作者署名、版本日期和稳定公开地址，发布前补齐准确书目信息。保留标题与来源关系，不附全文、不复制作者私有代码；不能因为排除全文而抹去致谢。取得可靠链接后可添加到这里。
 
 Mem0/Letta 的基线比较见 docs/01-project.md，未复制其代码。净化先导代码的来源说明见 provenance-platform.json，没有私人路径或聊天样本。
+
+## Stet 设计参考（2026-11-17）
+
+- [Hermes Agent Desktop](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/desktop.md)：设置分区的设计启发；本轮复用本项目表单整理分类，没有复制 Hermes 的界面代码、品牌或个人配置。
+- [Memory-R2](https://arxiv.org/abs/2605.21768)、[代码](https://github.com/ahmedehabb/Memory-R2)、[模型卡](https://huggingface.co/ahmedehabb/Memory-R2)：记忆构建策略和长程训练的研究参考。本包未运行该训练、未分发权重，也未宣称实现原算法。
+- [myalicia](https://github.com/mrdaemoni/myalicia)，参考公开版本 `6cd44b5721b960b3f623de2c4f9096514863555a`：Listen / Notice / Know 分层与关系变化文档的设计启发。本包没有合入其运行时代码。新的六种实用策略是 Stet 提案，不是原作者的六种神话原型。
+- [Unsloth Agent RL 指南](https://unsloth.ai/docs/get-started/reinforcement-learning-rl-guide/training-ai-agents-with-rl)：后续训练工具链参考，未接入一键训练或部署服务。
+
+功能设计引用与复制分发不同：可以记录作者、标题、链接及借鉴之处；没有相应许可就不随包附教程/PDF 全文。上述引用不表示作者背书或原实验结论在 Stet 上已经复现。

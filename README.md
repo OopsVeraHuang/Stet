@@ -1,6 +1,10 @@
-# Continuity — Prototype 01
+# Stet — Let it stand.
 
 **User-governed memory for continuity across AI models.**
+
+[English](README.en.md) · [中文使用指南](docs/14-getting-started.md) · [本版验收](docs/17-stet-preview.md) · [记忆与人格工程设计](docs/16-memory-persona-design.md)
+
+2026-11-17：原型更名 **Stet（let it stand）**。可在侧栏切换中文/English；保留原来的 `continuity` 启动命令和数据路径，已有数据不搬动。视频标为 Beta，工作室暂时隐藏。设置按模型连接、回答与记忆、伙伴偏好、联网工具、费用分组。
 
 支持长期协作、学习与陪伴的个人 Agent 研究平台，关系由用户定义。工作名未检查重名。
 
@@ -26,9 +30,12 @@ Windows 完成安装后双击 `启动原型.cmd`。Linux/macOS 使用 `.venv/bin
 2. 「记忆」搜索“松湾”核对原文；聊天也从同一导入档案检索，不生成假的演示回复。
 3. 「资料库」上传 PDF/DOCX/TXT/MD 或创建文字文件；「书架」导入 PDF/EPUB，与聊天并排，讨论只带当前片段。
 4. 有对话后开启「学习模式」，右键/长按消息收藏、批注、返回原对话。笔记参与同一检索；收藏不自动等于用户认可。
+   新增检索框，可同时查摘录与自己的评论，支持中英俄文字。
 5. 「视频」有本地预览与通话入口。通话需密钥且会计费，实机和 iPhone 尚待验收；后台/锁屏通话不支持。预览不上传。
 
 可选本地中英俄语义检索需要 requirements-semantic.txt 和独立权重，见 [开发说明](docs/10-cloud-development.md)。未安装时仍可词句检索，不会自动改用付费 embedding。
+
+支持预览 ChatGPT / Claude 的 conversations.json、Gemini Takeout JSON、AI Studio JSON，以及含一个可识别会话 JSON 的 ZIP。保留原件，按已知结构导入文字；附件和未知格式不冒充已解析。格式、32 MiB 限制及缺失字段说明见使用指南。
 
 ## 最近的体验修复
 

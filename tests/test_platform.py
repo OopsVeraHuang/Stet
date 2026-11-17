@@ -90,6 +90,21 @@ class PlatformTests(unittest.TestCase):
         self.assertTrue(any(x['id']==pid for x in api.automatic_recall('synthetic annotation',[])))
         api.study.change(api,{'id':note['id'],'revision':note['revision'],'action':'trash'})
         with self.assertRaises(ValueError):api.get_paragraph(pid)
+    def test_note_search_comments_unicode_pagination_and_trash(self):
+        for i in range(52):
+            cid=self.add_chat(f'Привет {i} · 100%_','assistant');api.study.collect(api,cid)
+        page=api.study.listing(api,query='ПРИВЕТ')
+        self.assertEqual(len(page['items']),50);self.assertTrue(page['has_more'])
+        older=api.study.listing(api,before=page['items'][-1]['id'],query='привет')
+        self.assertEqual(len(older['items']),2);self.assertFalse(older['has_more'])
+        note=page['items'][0]
+        changed=api.study.change(api,{'id':note['id'],'revision':note['revision'],'action':'annotate','start':0,'end':1,'kind':'comment','comment':'中文检索证据'})
+        self.assertEqual([n['id'] for n in api.study.listing(api,query='检索')['items']],[note['id']])
+        api.study.change(api,{'id':note['id'],'revision':changed['revision'],'action':'trash'})
+        self.assertEqual(api.study.listing(api,query='检索')['items'],[])
+        self.assertEqual(len(api.study.listing(api,deleted=True,query='检索')['items']),1)
+        self.assertEqual(len(api.study.listing(api,query='%_')['items']),50)
+        self.assertEqual(api.study.listing(api,query="' OR 1=1 --")['items'],[])
     def test_library_versions_preserve_original(self):
         r=api.library.edit(api,{'name':'synthetic.md','text':'version one'})
         api.library.edit(api,{'id':r['id'],'base_version':1,'text':'version two'})

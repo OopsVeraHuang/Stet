@@ -1,5 +1,7 @@
 # 本地与云端开发
 
+2026-11-17：品牌更新为 Stet，保留 continuity 命令和 profile 路径。最新操作与原生导入边界见 `14-getting-started.md` / `15-getting-started.en.md`。本轮四个浏览器入口为 check_browser.cjs、check_platform_browser.cjs、check_platform_recovery.cjs、check_stet_browser.cjs；设置 `CONTINUITY_PYTHON` 指向已安装依赖的虚拟环境，必要时用 `CONTINUITY_CHROMIUM` 指向现有浏览器。
+
 GitHub 保存工程，开发环境运行代码，应用服务器持续提供访问。上传 GitHub 不等于上线。每个环境有自己的 profile 和密钥，不能把 SQLite 或登录凭据提交共享。
 
 ## 应用安装

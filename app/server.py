@@ -1316,6 +1316,11 @@ class Handler(BaseHTTPRequestHandler):
             return
         q = {k: v[0] for k, v in urllib.parse.parse_qs(parsed.query).items()}
         try:
+            if path == '/guide.html':
+                return self.respond(200,(ROOT/'app/static/guide.html').read_bytes(),'text/html; charset=utf-8')
+            if path in ('/guide.zh.md','/guide.en.md'):
+                guide='14-getting-started.md' if path.endswith('.zh.md') else '15-getting-started.en.md'
+                return self.respond(200,(ROOT/'docs'/guide).read_bytes(),'text/markdown; charset=utf-8')
             if path.startswith('/import'):
                 try:
                     return platform_import.handle_get(self, sys.modules[__name__])
@@ -1331,7 +1336,7 @@ class Handler(BaseHTTPRequestHandler):
                 if not file.is_relative_to(base) or not file.is_file():return self.respond(404,{'error':'未找到组件。'})
                 mime='text/javascript' if file.suffix in ('.js','.mjs') else mimetypes.guess_type(str(file))[0] or 'application/octet-stream'
                 return self.respond(200,file.read_bytes(),mime)
-            if path in ('/study.js','/study.css','/platform.js'):
+            if path in ('/study.js','/study.css','/platform.js','/i18n.js','/i18n-catalog.js','/settings.js','/settings.css'):
                 return self.respond(200,(ROOT/'app/static'/path[1:]).read_bytes(), 'text/css; charset=utf-8' if path.endswith('.css') else 'text/javascript; charset=utf-8')
             if path == '/booktools.js':return self.respond(200,(ROOT/'app/static/booktools.js').read_bytes(),'text/javascript; charset=utf-8')
             if path == '/studio.js':return self.respond(200,(ROOT/'app/static/studio.js').read_bytes(),'text/javascript; charset=utf-8')
@@ -1386,7 +1391,7 @@ class Handler(BaseHTTPRequestHandler):
                 cfg = config()
                 result = {'items': items, 'ceiling_rmb': sum(embedding_ceiling(i['raw_text'], cfg) for i in items)}
             elif path == '/api/study':
-                result = study.listing(sys.modules[__name__],q.get('deleted')=='1',max(0,int(q.get('before',0))))
+                result = study.listing(sys.modules[__name__],q.get('deleted')=='1',max(0,int(q.get('before',0))),q.get('q',''))
             elif path == '/api/history/around':
                 result = history(compact=True,around=int(q.get('id',0)))
             elif path == '/api/history':

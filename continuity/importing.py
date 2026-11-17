@@ -5,8 +5,8 @@ import json
 import re
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-MAX_BYTES = 2 * 1024 * 1024
-MAX_MESSAGES = 2000
+MAX_BYTES = 32 * 1024 * 1024
+MAX_MESSAGES = 20000
 MD_HEADER = '# Continuity transcript v1\n'
 MARKER = re.compile(r'^<!-- continuity-message: (\{[^\n]*\}) -->\r?\n', re.MULTILINE)
 ROLES = {'user', 'assistant', 'system', 'tool', 'unknown'}
@@ -43,8 +43,14 @@ def identity(record):
 
 
 def parse(raw, filename):
+    from . import native_import
     if not raw or len(raw) > MAX_BYTES:
-        raise ImportProblem('文件必须非空且不超过 2 MiB。')
+        raise ImportProblem('文件必须非空且不超过 32 MiB。')
+    original = raw
+    member = None
+    if filename.lower().endswith('.zip'):
+        raw, member = native_import.unzip(raw)
+        filename = member
     try:
         text = raw.decode('utf-8-sig')
         # JSON escaped surrogates are checked again after parsing.
@@ -54,9 +60,17 @@ def parse(raw, filename):
     envelope = {}
     if filename.lower().endswith('.json'):
         envelope = strict_json(text)
-        if not isinstance(envelope, dict) or not isinstance(envelope.get('messages'), list):
-            raise ImportProblem('规范 JSON 顶层须为包含 messages 数组的对象。')
-        records = [(r, {'json_pointer': f'/messages/{i}'}) for i, r in enumerate(envelope['messages'])]
+        try:
+            adapted = native_import.adapt(envelope)
+        except (AttributeError, TypeError, KeyError, RecursionError) as error:
+            raise ImportProblem('Invalid native export structure / 平台导出结构无效。') from error
+        if adapted:
+            records, report = adapted
+            envelope = {'native_import':report}
+        elif isinstance(envelope, dict) and isinstance(envelope.get('messages'), list):
+            records = [(r, {'json_pointer': f'/messages/{i}'}) for i, r in enumerate(envelope['messages'])]
+        else:
+            raise ImportProblem('未识别的导出格式。支持 ChatGPT / Claude conversations.json、Gemini Takeout JSON、AI Studio JSON 和规范 messages JSON。')
     elif filename.lower().endswith('.md'):
         markers = list(MARKER.finditer(text))
         if not text.replace('\r\n', '\n').startswith(MD_HEADER) or not markers:
@@ -74,11 +88,12 @@ def parse(raw, filename):
                                      'text_start_line': text.count('\n', 0, marker.end()) + 1,
                                      'text_end_line': text.count('\n', 0, end) + (not text[:end].endswith('\n'))}))
     else:
-        raise ImportProblem('P1-A 只支持规范 .json 和 .md，不自动猜测其他平台格式。')
+        raise ImportProblem('请选择支持的 JSON、ZIP 或 Continuity MD 文件；HTML、PDF 不能作为聊天档案导入。')
     if not records or len(records) > MAX_MESSAGES:
         raise ImportProblem(f'一次须包含 1–{MAX_MESSAGES} 条消息。')
     rows = []
     for i, (record, locator) in enumerate(records):
+        if member: locator = {**locator, 'zip_member':member}
         errors, warnings = [], []
         if not isinstance(record, dict):
             record = {'unparsed_value': record}
@@ -118,5 +133,5 @@ def parse(raw, filename):
         canonical([envelope, rows]).encode('utf-8')
     except (UnicodeError, RecursionError) as error:
         raise ImportProblem('文件含无法保存的 Unicode 或过深嵌套。') from error
-    return {'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw), 'rows': rows,
+    return {'sha256': hashlib.sha256(original).hexdigest(), 'bytes': len(original), 'rows': rows,
             'extensions': {k: v for k, v in envelope.items() if k != 'messages'}}

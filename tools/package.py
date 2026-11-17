@@ -148,7 +148,7 @@ def main():
     verify.add_argument("--root", type=Path, default=ROOT)
     package = commands.add_parser("build", help="Export clean committed HEAD and verify its ZIP")
     package.add_argument("--output", type=Path,
-                         default=ROOT / "dist" / "Continuity-Prototype01-2026-10-24.zip")
+                         default=ROOT / "dist" / "Stet-Preview-2026-11-17.zip")
     args = parser.parse_args()
     try:
         if args.command == "refresh":

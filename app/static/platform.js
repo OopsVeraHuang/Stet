@@ -21,7 +21,7 @@ document.getElementById('profileform').addEventListener('submit',async e=>{
   try {
     const p=Object.fromEntries(['agent_name','user_name','preferences'].map(k=>[k,document.getElementById(k).value]));
     p.relationship=document.getElementById('relationship_setting').value;
-    await api('profile',p);document.querySelector('header h1').textContent=p.agent_name||'Continuity';
+    await api('profile',p);document.querySelector('header h1').textContent=p.agent_name||'Stet';
     document.getElementById('profileguide').textContent='';notify('已保存，仅影响这个独立实例。');
   } catch(error){notify(error.message);}
 });

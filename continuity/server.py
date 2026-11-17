@@ -60,7 +60,14 @@ def make_server(directory, port=0):
             query = parse_qs(parsed.query, keep_blank_values=True)
             path = parsed.path
             try:
-                if path in {'/', '/app.js', '/style.css'}:
+                if path in {'/i18n.js','/i18n-catalog.js'}:
+                    self.send((ROOT/'app/static'/path[1:]).read_bytes(), mime='text/javascript; charset=utf-8')
+                elif path == '/guide.html':
+                    self.send((ROOT/'app/static/guide.html').read_bytes(), mime='text/html; charset=utf-8')
+                elif path in {'/guide.zh.md', '/guide.en.md'}:
+                    name = '14-getting-started.md' if path == '/guide.zh.md' else '15-getting-started.en.md'
+                    self.send((ROOT/'docs'/name).read_bytes(), mime='text/markdown; charset=utf-8')
+                elif path in {'/', '/app.js', '/style.css'}:
                     name, mime = {'/': ('index.html', 'text/html; charset=utf-8'),
                                   '/app.js': ('app.js', 'text/javascript; charset=utf-8'),
                                   '/style.css': ('style.css', 'text/css; charset=utf-8')}[path]

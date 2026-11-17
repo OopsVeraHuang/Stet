@@ -51,10 +51,20 @@ def unpack(row):
     return dict(row) | {'annotations': json.loads(row['annotations'])}
 
 
-def listing(api, deleted=False, before=0):
+def listing(api, deleted=False, before=0, query=''):
+    if not isinstance(query, str) or len(query) > 200:
+        raise ValueError('笔记检索词最多 200 字符 / Search is limited to 200 characters.')
+    term = query.strip().casefold()
     with api.state_db() as db:
+        # Literal Unicode search, including comments; % and _ are ordinary characters.
+        # No new index, copied memory store or paid embedding call is needed.
+        def matches(text, annotations):
+            return int(not term or term in text.casefold() or any(
+                term in a.get('comment','').casefold() for a in json.loads(annotations)))
+        db.create_function('note_matches', 2, matches)
         rows = db.execute('''SELECT * FROM study_notes WHERE deleted=?
-          AND (?=0 OR id<?) ORDER BY id DESC LIMIT 51''', (int(deleted), before, before)).fetchall()
+          AND (?=0 OR id<?) AND note_matches(text,annotations)
+          ORDER BY id DESC LIMIT 51''', (int(deleted), before, before)).fetchall()
     return {'items': [unpack(r) for r in rows[:50]], 'has_more': len(rows) > 50}
 
 

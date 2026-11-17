@@ -2,7 +2,7 @@
 
 ## 一句话
 
-Continuity 是一个让用户能够携带、检查、修正并有选择地使用共同经历的个人 Agent 交互平台，研究在基础模型改变时，交互关系如何保持连续，又能接受用户主动改变。
+Stet（let it stand，原工作名 Continuity）是一个让用户能够携带、检查、修正并有选择地使用共同经历的个人 Agent 交互平台，研究在基础模型改变时，交互关系如何保持连续，又能接受用户主动改变。
 
 英文作品集描述草案：A research prototype exploring how user-governed, provenance-preserving memory can support relational continuity across language-model changes.
 

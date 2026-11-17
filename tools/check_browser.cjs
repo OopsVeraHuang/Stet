@@ -18,7 +18,7 @@ let browser;
     server.stdout.on('data',data=>{const match=data.toString().match(/http:\/\/127\.0\.0\.1:\d+/);if(match){clearTimeout(timeout);resolve(match[0]);}});
     server.on('error',reject);server.on('exit',code=>{if(code)reject(new Error('Server exited: '+code));});
   });
-  browser=await chromium.launch({executablePath:process.env.CONTINUITY_CHROMIUM || '/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+  browser=await chromium.launch(process.env.CONTINUITY_CHROMIUM?{executablePath:process.env.CONTINUITY_CHROMIUM,headless:true}:process.platform==='win32'?{channel:'msedge',headless:true}:{headless:true});
   const page=await browser.newPage({viewport:{width:1280,height:1000}});
   const errors=[];const external=[];
   page.on('pageerror',e=>errors.push(e.message));

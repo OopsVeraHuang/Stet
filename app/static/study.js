@@ -19,9 +19,13 @@
   const tabs=el('div',undefined,'study-tabs');
   const activeTab=button('我的摘录',()=>switchList(false)),trashTab=button('回收站',()=>switchList(true));
   const refreshButton=button('刷新',()=>loadNotes());tabs.append(activeTab,trashTab,refreshButton);
+  const search=el('input');search.id='study-search';search.type='search';search.maxLength=200;
+  search.placeholder='搜索摘录或评论';search.setAttribute('aria-label','搜索学习笔记');
+  let searchTimer;
+  search.addEventListener('input',()=>{clearTimeout(searchTimer);requestVersion++;searchTimer=setTimeout(()=>loadNotes(),180);});
   const list=el('div',undefined,'study-list');list.id='study-list';
   const footer=el('small','已接入共同记忆 · 收藏与批注不调用付费模型','study-footer');
-  panel.append(heading,hint,toolbar,tabs,list,footer);
+  panel.append(heading,hint,toolbar,search,tabs,list,footer);
   const backdrop=button('关闭笔记',()=>setOpen(false),'study-backdrop');backdrop.hidden=true;backdrop.tabIndex=-1;
   const menu=el('div',undefined,'study-menu');menu.hidden=true;menu.setAttribute('role','menu');
   const dialog=el('dialog',undefined,'study-comment-dialog');dialog.setAttribute('aria-labelledby','study-comment-title');
@@ -55,7 +59,7 @@
     const version=++requestVersion;loading=true;refreshButton.disabled=true;
     try{
       const before=more&&notes.size?Math.min(...notes.keys()):0;
-      const result=await api(`study?deleted=${deleted?1:0}&before=${before}`);
+      const result=await api(`study?deleted=${deleted?1:0}&before=${before}&q=${encodeURIComponent(search.value.trim())}`);
       if(version!==requestVersion)return;
       if(!more)notes=new Map();result.items.forEach(n=>notes.set(n.id,n));hasMore=result.has_more;
       selection=null;render();
@@ -64,7 +68,7 @@
   }
   async function collect(id){
     const note=await api('study/collect',{source_chat_id:id});
-    deleted=false;opened=true;layout();await loadNotes();
+    deleted=false;search.value='';opened=true;layout();await loadNotes();
     // An older, already-collected note may be outside the first page.
     if(!notes.has(note.id)){notes.set(note.id,note);render();}
     $('study-note-'+note.id)?.scrollIntoView({block:'nearest'});
@@ -93,7 +97,7 @@
   function render(){
     const scroll=list.scrollTop;list.replaceChildren();
     activeTab.setAttribute('aria-pressed',String(!deleted));trashTab.setAttribute('aria-pressed',String(deleted));
-    if(!notes.size)list.append(el('p',deleted?'回收站是空的。':'把一句重要的话留在这里。\n在消息上长按、右键，或点「记笔记」。','study-empty'));
+    if(!notes.size)list.append(el('p',search.value.trim()?'没有匹配的摘录或评论。':deleted?'回收站是空的。':'把一句重要的话留在这里。\n在消息上长按、右键，或点「记笔记」。','study-empty'));
     for(const note of [...notes.values()].sort((a,b)=>b.id-a.id)){
       const card=el('article',undefined,'study-note');card.id='study-note-'+note.id;card.dataset.noteId=note.id;
       const top=el('div',undefined,'study-note-top');top.append(el('small',`${note.source_role==='user'?'用户':'Agent'} · ${time(note.source_time)}`));
@@ -184,7 +188,7 @@
     }
     if(opened&&enabled&&e.key==='Escape'){setOpen(false);e.preventDefault();}
     if(opened&&enabled&&narrow.matches&&e.key==='Tab'){
-      const els=[...panel.querySelectorAll('button:not(:disabled),summary,textarea')].filter(n=>n.getClientRects().length),first=els[0],last=els.at(-1);
+      const els=[...panel.querySelectorAll('button:not(:disabled),summary,textarea,input')].filter(n=>n.getClientRects().length),first=els[0],last=els.at(-1);
       if(e.shiftKey&&document.activeElement===first){last.focus();e.preventDefault();}else if(!e.shiftKey&&document.activeElement===last){first.focus();e.preventDefault();}
     }
   });

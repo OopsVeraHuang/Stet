@@ -30,7 +30,7 @@ let browser;
  await page.locator('.book-card').filter({hasText:'Synthetic paper.pdf'}).getByRole('button').click();
  await page.waitForFunction(()=>document.querySelector('.textLayer')?.textContent.includes('Synthetic PDF reading check'));
  await page.locator('[data-tab="library"]').click();await page.locator('#library.active').waitFor();
- await page.locator('[data-tab="settings"]').click();await page.locator('#agent_name').fill('Synthetic partner');
+ await page.locator('[data-tab="settings"]').click();await page.locator('#settings-tab-profile').click();await page.locator('#agent_name').fill('Synthetic partner');
  await page.locator('#profileform button').click();await page.waitForFunction(()=>document.querySelector('header h1').textContent==='Synthetic partner');
  const p=await (await page.request.get(url+'/api/profile',{headers})).json();assert.equal(p.agent_name,'Synthetic partner');
  await page.locator('[data-tab="video"]').click();await page.locator('#livepreview').waitFor();assert.ok(await page.locator('#livebegin').isDisabled());
