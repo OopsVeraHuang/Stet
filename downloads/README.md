@@ -1,6 +1,21 @@
 # 私有体验包下载
 
-## 最新：Stet 双语预览 · 2026-11-17
+## 最新：Stet 双语预览 r2 · GitHub 地址修正版
+
+[下载 Stet-Preview-2026-11-17-r2.zip](Stet-Preview-2026-11-17-r2.zip)。打开文件页，点击 **Download raw file / 下载原始文件**。当前仓库为 [OopsVeraHuang/Stet](https://github.com/OopsVeraHuang/Stet)，仍为私有；需要登录有权限的 GitHub 账户。
+
+r2 更新中英 README、工程说明及交接词中的仓库地址，应用代码与上一版一致。已有安装无需迁移数据或重新填密钥；源码检出的 Git 远端可按 docs/10 更新。旧 ZIP 和 Git 历史保留原字节，包内 downloads 中的历史版本不作为当前地址参考。
+
+- 来源提交：`e5e5bc85e0679359eed6cab8404954319a586179`。
+- 大小：15,749,609 字节；含历史下载包，因此比首版大。
+- SHA-256：`c6a80c0ce46430b48bbce2289b4925c9892b9227df0abb4c1905c6588f9827cc`。
+- 351 个 ZIP 成员；全新解压后 350 个清单文件逐字节校验通过。
+- 当前文本文件未再引用旧 GitHub 用户名；嵌套历史 ZIP 保持原样。
+- 本次仅改文档与地址，沿用上一版 41 项测试与四套浏览器检查的适用范围；没有重跑或声称新增功能验收。
+
+English: **[Download the r2 address update](Stet-Preview-2026-11-17-r2.zip)** and use **Download raw file** on the file page. Follow README.en.md after extraction. This revision updates repository links to `OopsVeraHuang/Stet`; application code is unchanged. Existing profiles and credentials require no migration. Historical archives remain unchanged for reproducibility.
+
+## 历史版本：Stet 双语预览 · 2026-11-17
 
 [下载 Stet-Preview-2026-11-17.zip](Stet-Preview-2026-11-17.zip)。打开文件页后点右上角 **Download raw file / 下载原始文件**。解压后按 README 安装依赖，Windows 可用 `启动原型.cmd` 启动。中英文完整指南在 docs/14 和 docs/15；应用内侧栏也可打开。此包为源码体验包，不是免安装 EXE，不包含 API key、私人档案或模型权重。
 

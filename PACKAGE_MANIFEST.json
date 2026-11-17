@@ -1610,8 +1610,13 @@
     },
     {
       "path": "downloads/README.md",
-      "bytes": 3408,
-      "sha256": "8bfb51774939cf925db02ecaa8d3522d8fa734671433cea7ea958214d0426f8a"
+      "bytes": 4975,
+      "sha256": "92f4e8ec28c9f09b20b1fb09c3715c1f2e716aafee33d1781868d64273762ecf"
+    },
+    {
+      "path": "downloads/Stet-Preview-2026-11-17-r2.zip",
+      "bytes": 15749609,
+      "sha256": "c6a80c0ce46430b48bbce2289b4925c9892b9227df0abb4c1905c6588f9827cc"
     },
     {
       "path": "downloads/Stet-Preview-2026-11-17.zip",
