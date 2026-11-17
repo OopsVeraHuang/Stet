@@ -2,7 +2,7 @@
 
 请在此独立库继续 Stet（原名 Continuity）。用户明确要求继承先导应用完整体验：聊天、模型选择、工具、记忆、灰紫 UI、阅读器、资料库、米色学习笔记、视频与窄屏界面；不要再次缩成绿色 RAG 管理后台。
 
-Stet 双语预览交付会同步到现有私有仓库 main；先 fetch 并核对 docs/status.md 和 downloads/README.md 的最新提交。不要再检出过时的 P0 基线重新造工作台。当前功能、检查和边界见 docs/17-stet-preview.md。
+当前私有仓库为 https://github.com/OopsVeraHuang/Stet，Git 远端为 https://github.com/OopsVeraHuang/Stet.git。Stet 双语预览交付已同步到 main；先 fetch 并核对 docs/status.md 和 downloads/README.md 的最新提交。不要再检出过时的 P0 基线重新造工作台。当前功能、检查和边界见 docs/17-stet-preview.md。
 
 先读 AGENTS、README、docs/01-project、02-architecture、04-roadmap、12-platform-migration 和 status。`app/` 已迁入净化后的功能代码，`continuity/` 保留原件导入工作台。默认入口 `python -m continuity` 是聊天平台，导入入口在 /import/。旧“先从三屏空壳做起”的交接词已撤销。
 

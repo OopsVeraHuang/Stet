@@ -25,7 +25,7 @@ Git：起始 `work` / `main` 均为 `ea9d380`，GitHub 连接器确认指定仓�
 
 ### P1-A 交付核验
 
-实现提交 `56cf799` 已同步至指定私有 origin 的 `feat/p1a-memory-workbench`，创建可审阅 [PR #1](https://github.com/2811755043-bot/My-first-repository-/pull/1)，目标 `main`，未合并。更新本记录的提交只补充交付证据并刷新包清单。
+实现提交 `56cf799` 已同步至指定私有 origin 的 `feat/p1a-memory-workbench`，创建可审阅 [PR #1](https://github.com/OopsVeraHuang/Stet/pull/1)，目标 `main`，未合并。更新本记录的提交只补充交付证据并刷新包清单。
 
 该实现提交导出的 `dist/Continuity-P1A-review.zip` 包含 41 个成员（40 个清单文件 + 清单本身），ZIP SHA-256 为 `ca666d214e2ca971803883145bcbd3124956584bf5f6886588aba61bd14a654f`。在无 `.git` 的全新临时解压目录再次完成 40 文件校验与 25 项测试。ZIP、数据库及截图均未提交。交付记录更新后从最终 HEAD 另导出 `dist/Continuity-P1A.zip`，最终包哈希以打包命令输出为准，不能沿用上述旧包哈希。
 
@@ -77,4 +77,10 @@ Windows / Python 3.12.14 的 41 项离线测试通过，四套无头 Edge 浏览
 
 实现提交 `a0413edc8c8898fc0f1c05b0cad68241d7eb065f`；下载包提交 `04c082e` 已上传 main 与 codex/stet-bilingual-preview，保留之前全部历史。新 ZIP 包含 350 个成员，SHA-256 为 `7f061dd2451f982d8305fba5d64d7cec5c78035dffb398758425a29935e62582`；全新解压后 349 个清单文件校验及 41 项测试再次通过。已有 416 个历史 blob、工作文件及旧 ZIP 成员的常见凭据/私人端点模式扫描无匹配；这是有限扫描，不是绝对隐私保证。
 
-所有者随后明确授权仓库改名。GitHub 官方 API 已将同一仓库（ID 1431762124）从 My-first-repository- 改为 [Stet](https://github.com/2811755043-bot/Stet)，维持 private 和 main；本地 origin 同步更新。README.md / README.en.md 顶部互链，中英表述按功能对应，新增可用于作品集的研究原型描述。此次收尾只更新链接与交付记录，不改动应用代码或已验证 ZIP。
+所有者随后明确授权仓库改名。GitHub 官方 API 已将同一仓库（ID 1431762124）从 My-first-repository- 改为 [Stet](https://github.com/OopsVeraHuang/Stet)，维持 private 和 main；本地 origin 同步更新。README.md / README.en.md 顶部互链，中英表述按功能对应，新增可用于作品集的研究原型描述。此次收尾只更新链接与交付记录，不改动应用代码或已验证 ZIP。
+
+### GitHub 用户名变更后的地址更新（2026-11-17）
+
+通过不变的仓库 ID 确认新所有者名称为 `OopsVeraHuang`，当前路径为 `OopsVeraHuang/Stet`，仓库仍为 private。更新中英 README、交接提示、交付记录、下载说明和历史 PR 的当前链接；本地 origin 与本对话 PR 附件也改为新地址。Git 历史和既有 ZIP 保持原字节，另提供地址修正版下载包；确切提交及校验值见 downloads/README.md。
+
+额外发现旧 Codex 云环境的仓库路径/提交绑定尚未更新。本轮可列出配置，但没有可用的编辑工具或已连接的设置浏览器，因此未修改云环境、未创建任务或重新授权账号。后续操作见 docs/10-cloud-development.md；不能将仓库上传成功表述为云环境也已修复。本轮仅修改地址与交付说明，应用行为及既有测试结论不变。

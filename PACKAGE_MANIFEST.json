@@ -20,18 +20,18 @@
     },
     {
       "path": "NEXT_AGENT.md",
-      "bytes": 3054,
-      "sha256": "c8df082c7a7984ac60ae9a923b670eb2abb2023517d354a314ff3da23ffb5add"
+      "bytes": 3156,
+      "sha256": "30b7e019fa603b8e37d8b078e801aa6b0a9e08ce87170bb5ed63f1ab217edc0d"
     },
     {
       "path": "README.en.md",
-      "bytes": 4039,
-      "sha256": "fe35cdb036454a2a10f1aa034013ddd9506aad072f87d01e0ebd071948e08088"
+      "bytes": 4037,
+      "sha256": "e636c3ec71976a3d66f0161d3e368005ce2f0331b334954e814956d6763d4c60"
     },
     {
       "path": "README.md",
-      "bytes": 5005,
-      "sha256": "a37c2caa29fc2e0818d3789655946c453b5b6677d77203bd656dffd2f5f7b9bf"
+      "bytes": 5003,
+      "sha256": "cfa18a216315100107417b4c4b01393dc02403414014d30c5e7a1077602774e5"
     },
     {
       "path": "THIRD_PARTY.md",
@@ -1560,8 +1560,8 @@
     },
     {
       "path": "docs/10-cloud-development.md",
-      "bytes": 3416,
-      "sha256": "d81e10854e8e3fbe1b46fe654a71bbc5f48aa9eb08c58dec4fabd989a5e7eb04"
+      "bytes": 4364,
+      "sha256": "f575c17a2d347a5b0e7ebc80f27990d9830e37dff3400c31a34f18589cb2ac2c"
     },
     {
       "path": "docs/11-p1a-workbench.md",
@@ -1595,13 +1595,13 @@
     },
     {
       "path": "docs/17-stet-preview.md",
-      "bytes": 5122,
-      "sha256": "4c696cb4edf3362dc27299f1668d4aa25e709a134528fdec827b369f8e66124f"
+      "bytes": 5120,
+      "sha256": "72f5e09c1600ec1f7a57dd0ca8688938a5bacc7255be9e381895fa74d824d07d"
     },
     {
       "path": "docs/status.md",
-      "bytes": 13646,
-      "sha256": "06913c5bcf911d8b029ad8441b2de330f4b6909b167aff8f336ae4d543b584ee"
+      "bytes": 14522,
+      "sha256": "6146c8df67931d3d14951e8a291f7732a5179ce36c4407a6877ffbcce809e98f"
     },
     {
       "path": "downloads/Continuity-platform-experience-2026-10-27.zip",
@@ -1610,8 +1610,8 @@
     },
     {
       "path": "downloads/README.md",
-      "bytes": 3409,
-      "sha256": "75f963b59052739e267f5abe2e33819b50a6b7b0db0e7615e8bda574eb7e6a71"
+      "bytes": 3408,
+      "sha256": "8bfb51774939cf925db02ecaa8d3522d8fa734671433cea7ea958214d0426f8a"
     },
     {
       "path": "downloads/Stet-Preview-2026-11-17.zip",

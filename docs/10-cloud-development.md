@@ -4,6 +4,12 @@
 
 GitHub 保存工程，开发环境运行代码，应用服务器持续提供访问。上传 GitHub 不等于上线。每个环境有自己的 profile 和密钥，不能把 SQLite 或登录凭据提交共享。
 
+## 当前仓库与云环境绑定
+
+仓库地址为 [OopsVeraHuang/Stet](https://github.com/OopsVeraHuang/Stet)，Git 远端为 `https://github.com/OopsVeraHuang/Stet.git`，当前开发入口是 `main`。已有检出可以运行 `git remote set-url origin https://github.com/OopsVeraHuang/Stet.git` 后再 `git fetch origin`；这只更新远端地址，不改变本地资料或历史。
+
+2026-11-17 检查发现，旧 Codex 云环境仍有按原仓库路径及早期提交固定的配置，不能把本地远端修复当成这些配置也已更新。请在 [Codex 环境设置](https://chatgpt.com/codex/settings/environments) 中重新选择当前仓库和 `main`，保留原有环境变量及权限。当前工具只能列出这些配置，浏览器编辑入口不可用，因此该项尚未代为修改。新的云端运行须再核对实际检出的提交。[官方环境说明](https://learn.chatgpt.com/docs/environments/cloud-environment)
+
 ## 应用安装
 
 Python 3.11+，从仓库根目录安装 requirements.txt。推荐虚拟环境；Windows 用 .venv/Scripts/python，Linux/macOS 用 .venv/bin/python。
