@@ -4,6 +4,8 @@
 
 [English](README.en.md) · [中文使用指南](docs/14-getting-started.md) · [本版验收](docs/17-stet-preview.md) · [记忆与人格工程设计](docs/16-memory-persona-design.md)
 
+**[下载 Stet 双语预览包](downloads/README.md)**（含校验值与安装步骤）。
+
 2026-11-17：原型更名 **Stet（let it stand）**。可在侧栏切换中文/English；保留原来的 `continuity` 启动命令和数据路径，已有数据不搬动。视频标为 Beta，工作室暂时隐藏。设置按模型连接、回答与记忆、伙伴偏好、联网工具、费用分组。
 
 支持长期协作、学习与陪伴的个人 Agent 研究平台，关系由用户定义。工作名未检查重名。

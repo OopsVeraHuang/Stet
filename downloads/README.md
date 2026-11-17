@@ -1,5 +1,22 @@
 # 私有体验包下载
 
+## 最新：Stet 双语预览 · 2026-11-17
+
+[下载 Stet-Preview-2026-11-17.zip](Stet-Preview-2026-11-17.zip)。打开文件页后点右上角 **Download raw file / 下载原始文件**。解压后按 README 安装依赖，Windows 可用 `启动原型.cmd` 启动。中英文完整指南在 docs/14 和 docs/15；应用内侧栏也可打开。此包为源码体验包，不是免安装 EXE，不包含 API key、私人档案或模型权重。
+
+- 实现提交：`a0413edc8c8898fc0f1c05b0cad68241d7eb065f`。
+- 大小：7,897,796 字节。
+- SHA-256：`7f061dd2451f982d8305fba5d64d7cec5c78035dffb398758425a29935e62582`。
+- 350 个成员（349 个清单文件 + 清单本身）。包内保留旧下载版本和历史说明；当前入口仍为 Stet。
+- 新增：中英 UI、笔记/评论搜索、原生平台文字导入、设置分类、使用说明；视频 Beta，工作室隐藏。
+- 41 项离线测试及四套浏览器流程通过；具体边界见 docs/17-stet-preview.md。记忆策略训练和分层人格仅为 docs/16 的工程提案。
+
+此后上传 ZIP 和补充说明的提交不改动包内代码。校验命令：`python tools/package.py verify`；测试使用安装好 requirements.txt 的 Python 环境。仓库保持私有，登录有访问权限的 GitHub 账户后下载。没有订阅服务或公网部署。
+
+English: download the file above using **Download raw file**, unzip it, and follow README.en.md. This is a source preview, not a standalone installer. Choose English in the sidebar. The package corresponds to the source commit and SHA-256 above; runtime data and credentials are excluded. Training and persona layers remain proposals.
+
+## 历史版本：Continuity
+
 这是完整 Continuity 平台体验包，供无法从云端工作区下载文件时使用。仓库保持私有。
 
 点击 [Continuity-platform-experience-2026-10-27.zip](Continuity-platform-experience-2026-10-27.zip)，在文件页右上角点击 **Download raw file / 下载原始文件**（向下箭头）。需要登录有权访问此仓库的 GitHub 账户。无需使用 Code → Download ZIP；后者下载的是整个分支。

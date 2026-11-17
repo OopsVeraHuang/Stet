@@ -25,13 +25,13 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 3593,
-      "sha256": "e43785856fae272420124d3d33b210b7c03aa5aefbe08b6c5c3c308c258cac7d"
+      "bytes": 3705,
+      "sha256": "81594d4ba7c43660e4e23f52f2248f38dc8fcb08e050237c4bee2d9319398f71"
     },
     {
       "path": "README.md",
-      "bytes": 4592,
-      "sha256": "2a2849a0ff6f861876b46b5be5a5bb9c19128291badbff283cd683884767c816"
+      "bytes": 4684,
+      "sha256": "3d78ae831777aee8ab7e2be5b586688b7b3c0eaa9bb7c6a55fec12432014987e"
     },
     {
       "path": "THIRD_PARTY.md",
@@ -1610,8 +1610,13 @@
     },
     {
       "path": "downloads/README.md",
-      "bytes": 1378,
-      "sha256": "cb5f327496d8ecbf4de369f2a25cc57036827f5ceaa9baa20eaf278e9f647cb0"
+      "bytes": 3076,
+      "sha256": "2338e34309f55ba9ffcc2442faff7c637daaa287071ee923948d131ce9d72a63"
+    },
+    {
+      "path": "downloads/Stet-Preview-2026-11-17.zip",
+      "bytes": 7897796,
+      "sha256": "7f061dd2451f982d8305fba5d64d7cec5c78035dffb398758425a29935e62582"
     },
     {
       "path": "examples/cases.json",

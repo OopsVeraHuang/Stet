@@ -4,6 +4,8 @@
 
 [中文](README.md) · [Getting started](docs/15-getting-started.en.md) · [Architecture proposal](docs/16-memory-persona-design.md#english-overview)
 
+**[Download the bilingual preview](downloads/README.md)** — source package, checksum and installation steps.
+
 Stet is a personal agent research platform for long-term collaboration, learning and companionship. You define the relationship. It opens to a real chat interface with a charcoal and violet theme, alongside source-linked memory, a document library, a PDF/EPUB reader and paper-toned study notes. Video is **Beta**; Studio is currently hidden.
 
 ## Run locally
