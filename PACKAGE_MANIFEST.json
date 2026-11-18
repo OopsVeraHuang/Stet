@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-17",
+  "date": "2026-11-18",
   "scope": "Offline-verifiable interaction platform and synthetic fixtures; no runtime data, credentials or model weights",
   "hash_scope": "exact staged Git blob bytes; manifest itself excluded",
   "files": [
@@ -25,13 +25,13 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 10900,
-      "sha256": "fd3d12758fb13da7d384280afe58f2abac5cf5e3227b9686f65a6fdb22b0c6d0"
+      "bytes": 10891,
+      "sha256": "5560fe52b45350d44f4d0ab6a43168afc1bd29437bc6b7cbfc402ac15801cb6f"
     },
     {
       "path": "README.md",
-      "bytes": 10063,
-      "sha256": "da03916f02c10316758a4dde2846339058d1a199a9dba3472ab2335792435aa6"
+      "bytes": 10082,
+      "sha256": "6a9ee7a6769ccd1d66b7f2b5582dc73aca79a1bec1d7c011c1b3e5dfb348d0ea"
     },
     {
       "path": "THIRD_PARTY.md",
@@ -1600,8 +1600,8 @@
     },
     {
       "path": "docs/status.md",
-      "bytes": 14984,
-      "sha256": "578d93038ca2486c109fca127a58bb9bbf151a89c93c960d8ccef7bec6e5db21"
+      "bytes": 15281,
+      "sha256": "eb2e71523de03a14ccb15963b97ed556f589e4c3c6f0ca41a946aac2ed32e646"
     },
     {
       "path": "downloads/Continuity-platform-experience-2026-10-27.zip",
